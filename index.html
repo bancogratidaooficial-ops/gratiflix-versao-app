@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="pt-BR"><head><link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#ffcc00">
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js')
+    .then(() => console.log('✅ GRATIFLIX Dourado pronto pra instalar - Ganhe saldo!'))
+    .catch(err => console.log('Erro SW', err));
+}
+</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GRATIFLIX NUVIX PREMIUM</title>
 <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiR1JBVElGTElYIiwic2hvcnRfbmFtZSI6IkdSQVRJRkxJWCIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMDAwIiwiYWN0aW9ucyI6W119">
 <meta name="theme-color" content="#ffcc00">
