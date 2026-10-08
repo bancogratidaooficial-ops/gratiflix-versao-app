@@ -1,171 +1,752 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>V86 PLAY - Filmes Dublado</title>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GRATIFLIX — Oficial | NUVIX</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e50914">
+<link rel="icon" type="image/png" href="https://bancogratidaooficial-ops.github.io/gratiflix-filmes/icon-192.png">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#000;color:#fff;text-align:center;padding:10px;padding-bottom:100px}
-.top{display:flex;gap:8px;margin-bottom:12px}.top a{flex:1;text-decoration:none;padding:12px;border-radius:10px;font-weight:bold;background:#222;color:#FFD700;border:2px solid #FFD700}.top a.active{background:#FFD700;color:#000}
-.busca{display:flex;gap:8px;margin-bottom:12px}.busca input{flex:1;padding:14px;border-radius:12px;border:2px solid #FFD700;background:#111;color:#fff}.busca button{background:#FFD700;border:none;padding:0 22px;border-radius:12px;font-weight:bold}
-.card{border:2px solid #FFD700;border-radius:20px;padding:10px;background:#111}video,iframe{width:100%;height:230px;border:none;border-radius:12px;background:#000}
-#nome{color:#FFD700;font-weight:bold;margin:10px 0;font-size:16px}#status{color:#25D366;font-size:12px}
-.btns{display:flex;justify-content:center;gap:8px;margin:12px 0;flex-wrap:wrap}.btns button{background:#FFD700;border:none;width:60px;height:60px;border-radius:50%;font-size:20px;font-weight:bold}.btns button.big{width:75px;height:75px;font-size:30px}
-.btn-dub{background:#00d26a!important;color:#fff!important;width:auto!important;padding:0 18px!important;border-radius:12px!important;font-size:14px!important;height:45px!important}
-.lista{text-align:left;background:#1a1a1a;border-radius:12px;padding:5px;max-height:350px;overflow:auto;margin:12px 0}
-.item{display:flex;gap:10px;align-items:center;padding:12px;border-bottom:1px solid #333}.item.active{background:#222;border-radius:10px;border:1px solid #FFD700}.item img{width:90px;height:55px;border-radius:8px;object-fit:cover}.item div{flex:1;text-align:left}.item div b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.item div small{color:#25D366;font-size:11px}.del{background:#ff2a2a;color:#fff;border:none;width:35px;height:35px;border-radius:50%}
-.green{background:#00d26a;color:#fff;border:none;padding:16px;border-radius:12px;width:100%;font-weight:bold;margin-top:10px}
-#btnTV{position:fixed;top:8px;right:8px;z-index:9999;background:#FF0000;color:#fff;border:none;padding:12px 18px;border-radius:50px;font-weight:900;box-shadow:0 4px 15px #000;font-size:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#fff;font-family:system-ui,Arial,sans-serif}
+.header{background:linear-gradient(180deg,#000,#111);padding:12px 14px;border-bottom:2px solid #e50914;position:sticky;top:0;z-index:90}
+.logo-top{font-size:30px;font-weight:900;letter-spacing:-1px;background:linear-gradient(90deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btn-c{border:0;padding:10px 14px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.btn-c:active{transform:scale(.96)}
+.btn-green{background:#00c853;color:#fff}
+.btn-blue{background:#2962ff;color:#fff}
+.btn-yellow{background:#ffca28;color:#000}
+.btn-orange{background:#ff6d00;color:#fff}
+.btn-purple{background:#9c27b0;color:#fff}
+.btn-dark{background:#2a2a2a;color:#fff}
+.btn-red{background:#d32f2f;color:#fff}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ffb300);color:#000;font-weight:800}
+.banner-gold{background:linear-gradient(135deg,#ffd700,#ffb300,#ff8c00);color:#000;padding:16px;border-radius:12px;margin:12px;box-shadow:0 4px 15px rgba(255,215,0,.3)}
+.banner-gold h2{font-size:20px;font-weight:900;margin-bottom:6px}
+.banner-gold p{font-size:13px;margin-bottom:10px;opacity:.9}
+.banner{background:linear-gradient(90deg,#000,#1a1a1a);padding:20px 14px;border-bottom:3px solid #ffd700}
+.banner h1{font-size:36px;font-weight:900}
+.banner h1 span{color:#ffd700}
+.search-wrap{display:flex;gap:0;margin:14px 12px;background:#1a1a1a;border-radius:8px;overflow:hidden;border:1px solid #333}
+.search-wrap input{flex:1;background:transparent;border:0;color:#fff;padding:14px 12px;outline:none;font-size:15px}
+.search-wrap button{background:#e50914;border:0;width:56px;color:#fff;font-size:18px;cursor:pointer}
+.section{margin:20px 12px}
+.section h2{font-size:18px;border-left:4px solid #ffd700;padding-left:10px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.grid{display:flex;gap:12px;overflow:auto;padding-bottom:12px;scrollbar-width:thin}
+.grid::-webkit-scrollbar{height:4px}
+.grid::-webkit-scrollbar-thumb{background:#444;border-radius:2px}
+.card{min-width:160px;max-width:160px;background:#141414;border-radius:10px;overflow:hidden;border:1px solid #2a2a2a;position:relative;transition:border .2s}
+.card:hover{border-color:#ffd700}
+.card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#222}
+.card-body{padding:8px}
+.card-title{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:4px}
+.card-li{font-size:10px;color:#aaa}
+.badge{position:absolute;top:6px;left:6px;background:#e50914;color:#fff;font-size:9px;padding:2px 6px;border-radius:4px;font-weight:700}
+.actions-card{position:absolute;top:6px;right:6px;display:flex;gap:4px}
+.actions-card button{width:26px;height:26px;border-radius:50%;border:0;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.edit{background:#ffca28;color:#000}
+.del{background:#ff1744;color:#fff}
+.share{background:#fff;color:#000}
+.copy{background:#00c853;color:#fff}
+.watch-coin{position:absolute;bottom:6px;right:6px;background:linear-gradient(135deg,#ffd700,#ffb300);color:#000;font-size:10px;font-weight:800;padding:2px 5px;border-radius:4px}
+.ganhe-panel{margin:12px;background:linear-gradient(135deg,#004d40,#00695c);border-radius:12px;padding:14px}
+.ganhe-panel h3{color:#69f0ae;font-size:16px;margin-bottom:8px}
+.valor-saldo{font-size:28px;font-weight:900;color:#69f0ae}
+.ganhe-acoes{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;z-index:999;padding:16px;align-items:center;justify-content:center}
+.modal.active{display:flex}
+.box{background:#111;border-radius:12px;width:100%;max-width:800px;overflow:hidden;border:1px solid #333}
+.modal-header{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:#000;border-bottom:1px solid #222}
+.modal-header h3{font-size:16px}
+.modal-close{background:#222;color:#fff;border:0;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer}
+.video-container{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+.video-container iframe{width:100%;height:100%;border:0}
+.modal-footer{padding:12px 16px;display:flex;gap:8px;flex-wrap:wrap}
+.modal-footer button{flex:1;min-width:120px}
+.admin-panel{background:#151515;border:2px dashed #ffd700;margin:12px;border-radius:12px;padding:14px;display:none}
+.admin-panel.show{display:block}
+.admin-panel h3{color:#ffd700;font-size:15px;margin-bottom:12px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0}
+.row-3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin:6px 0}
+.full{grid-column:1/-1}
+input,select,textarea{width:100%;background:#222;border:1px solid #444;color:#fff;padding:11px;border-radius:6px;font-size:14px}
+input:focus,select:focus{border-color:#ffd700;outline:none}
+.msg-box{background:#1a1a1a;border-left:3px solid #ffd700;padding:10px 12px;margin:10px 12px;font-size:13px}
+.success{border-color:#00c853;background:#002e1f}
+.warning{border-color:#ffca28;background:#2e2b00}
+.error{border-color:#ff5252;background:#2e0000}
+.ai-assistant{position:fixed;bottom:20px;right:20px;z-index:95}
+.ai-btn{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#7c4dff,#536dfe);border:none;color:#fff;font-size:26px;cursor:pointer;box-shadow:0 4px 12px rgba(83,109,254,.4);transition:transform .2s}
+.ai-btn:active{transform:scale(.92)}
+.ai-panel{position:absolute;bottom:70px;right:0;width:340px;max-width:calc(100vw - 40px);background:#1a1a1a;border-radius:12px;border:1px solid #443888;box-shadow:0 5px 30px rgba(0,0,0,.6);display:none;flex-direction:column;max-height:480px}
+.ai-panel.active{display:flex}
+.ai-header{padding:12px;background:#2d1b61;border-radius:12px 12px 0 0;display:flex;justify-content:space-between;align-items:center}
+.ai-body{padding:12px;overflow-y:auto;flex:1;font-size:14px;line-height:1.5}
+.ai-msg{margin:8px 0;padding:10px;border-radius:10px;max-width:85%}
+.ai-msg.ai{background:#2d1b61;border-top-left-radius:2px}
+.ai-msg.user{background:#1e3a8a;margin-left:auto;border-top-right-radius:2px}
+.ai-input-wrap{padding:10px;display:flex;gap:6px;border-top:1px solid #333}
+.ai-input-wrap input{flex:1;margin:0}
+.pasta-actions{display:flex;gap:6px;margin-left:auto}
+.empty-state{text-align:center;padding:40px 20px;color:#666;font-size:14px}
+.empty-state svg{width:64px;height:64px;margin-bottom:12px;opacity:.4}
+footer{padding:24px 16px;text-align:center;color:#666;font-size:12px;border-top:1px solid #222;margin-top:30px}
+footer a{color:#ffd700;text-decoration:none;margin:0 6px}
+.install-banner{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(90deg,#000,#1a1a1a);border-top:2px solid #ffd700;padding:12px;display:none;z-index:89}
+.install-banner.show{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.install-banner p{font-size:13px}
+.broadcast-bar{background:#1a1a2e;padding:8px 12px;font-size:12px;display:flex;align-items:center;justify-content:space-between;display:none}
+.broadcast-bar.show{display:flex}
+@media(max-width:480px){
+ .row,.row-3{grid-template-columns:1fr}
+ .ai-panel{width:calc(100vw - 40px);right:0}
+}
 </style>
 </head>
 <body>
-<button id="btnTV">📺 JOGAR NA TV</button>
 
-<div class="top"><a href="index.html">🎵 MÚSICAS</a><a href="video.html" class="active">🎬 FILMES</a></div>
-<div class="busca"><input type="text" id="q" placeholder="🔍 Buscar filme ex: Leonardo"><button onclick="buscar()">Buscar</button></div>
-<div class="card">
-<video id="video" controls style="display:none" playsinline></video>
-<iframe id="yt" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="autoplay; fullscreen" allowfullscreen></iframe>
-<div id="nome">🔴 FILME COMPLETO</div><div id="status">🎬 Busque um filme acima</div><div id="cont" style="color:#888;font-size:12px"></div>
-<div class="btns">
-<button onclick="ant()">⏮</button>
-<button class="big" onclick="pp()">▶️</button>
-<button onclick="prox()">⏭</button>
-<button class="btn-dub" id="btnDub" onclick="toggleDub()">🇧🇷 DUBLAR PT-BR</button>
+<div class="install-banner" id="installBanner">
+  <div>
+    <strong style="color:#ffd700">📲 Instale o GRATIFLIX e ganhe bônus!</strong>
+    <p>Assista filmes, convide amigos e aumente seus ganhos direto do seu celular</p>
+  </div>
+  <button class="btn-c btn-gold" id="installBtn">⬇️ INSTALAR</button>
 </div>
-<div id="dubStatus" style="color:#00d26a;font-size:11px;margin:5px 0"></div>
-<div class="lista" id="lista"></div>
+
+<div class="header">
+  <div class="logo-top">GRATI<span style="color:#fff">FLIX</span></div>
+  <div class="controls">
+    <button class="btn-c btn-green" onclick="abrirAddYT()">➕ LINK YT</button>
+    <button class="btn-c btn-blue" onclick="abrirAddPasta()">📁 NOVA PASTA</button>
+    <button class="btn-c btn-yellow" onclick="document.getElementById('fileInput').click()">📂 IMPORTAR</button>
+    <button class="btn-c btn-gold" onclick="salvarFixo()">💾 SALVAR FIXO</button>
+    <button class="btn-c btn-purple" onclick="restaurar()">🔄 RESTAURAR</button>
+    <button class="btn-c btn-dark" onclick="exportar()">📤 EXPORTAR</button>
+    <button class="btn-c btn-red" onclick="confirmarReset()">🗑️ RESET</button>
+    <button class="btn-c btn-dark" onclick="abrirBroadcast()">📺 TV/CAST</button>
+  </div>
+  <input type="file" id="fileInput" style="display:none" accept=".json" onchange="importarArquivo(event)">
 </div>
-<button class="green" onclick="document.getElementById('file').click()">➕ Filmes do Celular</button><input type="file" id="file" multiple accept="video/*" style="display:none">
-<button class="green" style="background:#111;border:2px solid #FFD700;color:#FFD700" onclick="addLink()">🔗 Link YouTube</button>
+
+<div class="broadcast-bar" id="broadcastBar">
+  <span>📺 Espelhar na TV: <strong id="castStatus">Desconectado</strong></span>
+  <div>
+    <button class="btn-c btn-dark" style="padding:4px 8px;font-size:11px" onclick="procurarDispositivos()">🔍 Procurar</button>
+    <button class="btn-c btn-dark" style="padding:4px 8px;font-size:11px" onclick="pararBroadcast()">⏹️ Parar</button>
+  </div>
+</div>
+
+<div class="banner-gold">
+  <h2>💰 ASSISTINDO, GANHANDO!</h2>
+  <p>Cada filme assistido gera valor na sua carteira — quanto mais você assiste, mais ganha!</p>
+  <div class="valor-saldo" id="saldoExibicao">R$ 0,00</div>
+  <div class="ganhe-acoes">
+    <button class="btn-c btn-gold" onclick="convidar()">📲 CONVIDAR E GANHE R$2,50</button>
+    <button class="btn-c btn-green" onclick="compartilharApp()">🔗 COMPARTILHAR APP</button>
+  </div>
+</div>
+
+<div class="banner">
+  <h1><span>GRATI</span>FLIX</h1>
+  <p>🎬 Filmes, séries e muito mais — tudo gratuito e dentro do aplicativo</p>
+</div>
+
+<div class="msg-box" id="statusMsg">
+  💾 Seus filmes salvos ficam guardados permanentemente. Clique em <strong>SALVAR FIXO</strong> para garantir!
+</div>
+
+<div class="admin-panel" id="adminPanel">
+  <h3>⚙️ CODIFICADOR NUVIX — Adicionar Filme</h3>
+  <input id="ytLink" placeholder="🔗 Cole o link do YouTube aqui (ex: youtube.com/watch?v=xxxxxx)">
+  <div class="row">
+    <input id="fTitulo" placeholder="📝 Título do filme/vídeo">
+    <select id="fAno">
+      <option value="">Ano</option>
+      <option>2026</option><option>2025</option><option>2024</option><option>2023</option>
+    </select>
+  </div>
+  <div class="row-3">
+    <select id="fCat">
+      <option value="">📁 Selecione a Pasta/Gênero</option>
+      <option value="Filmes">🎬 Filmes</option>
+      <option value="Ação">💥 Ação</option>
+      <option value="Comédia">😂 Comédia</option>
+      <option value="Drama">💔 Drama</option>
+      <option value="Super Man">🦸 Super Man</option>
+      <option value="Rocky/Rambo">🥊 Rocky/Rambo</option>
+      <option value="Mr Bean">😊 Mr Bean</option>
+      <option value="Cobra Kai">🥋 Cobra Kai</option>
+      <option value="Vingadores">🛡️ Vingadores</option>
+      <option value="Gratidão">🙏 Gratidão / Motivação</option>
+      <option value="Doramas">💖 Doramas</option>
+      <option value="Infantil">🧸 Infantil</option>
+      <option value="Animação">🎨 Animação</option>
+      <option value="Documentário">📖 Documentário</option>
+      <option value="Outros">📂 Outros</option>
+    </select>
+    <input id="fLicao" placeholder="✨ Lição / Mensagem">
+    <button class="btn-c btn-green" onclick="addFilme()">✅ ADICIONAR</button>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:8px">
+    <button class="btn-c btn-dark" onclick="limparCampos()">🧹 LIMPAR CAMPOS</button>
+    <button class="btn-c btn-purple" onclick="fecharAdmin()">❌ FECHAR</button>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <input id="busca" placeholder="🔍 Buscar filmes... ou cole um link do YouTube para codificar sozinho!" oninput="onBusca()">
+  <button onclick="onBusca()">🔍</button>
+</div>
+
+<div id="conteudo"></div>
+
+<footer>
+  <a href="#" onclick="mostrarSobre()">Sobre</a> |
+  <a href="#" onclick="mostrarPrivacidade()">Privacidade</a> |
+  <a href="#" onclick="convidar()">Convidar</a> |
+  <a href="https://bancogratidao.com.br" target="_blank">Banco Gratidão</a>
+  <br><br>
+  © 2026 GRATIFLIX by NUVIX | bancogratidao.com.br | Roda dentro do aplicativo
+</footer>
+
+<!-- MODAL DE VÍDEO -->
+<div class="modal" id="videoModal" onclick="if(event.target===this) fecharModal()">
+  <div class="box">
+    <div class="modal-header">
+      <h3 id="modalTitulo">—</h3>
+      <button class="modal-close" onclick="fecharModal()">×</button>
+    </div>
+    <div class="video-container">
+      <iframe id="videoPlayer" allowfullscreen allow="autoplay; fullscreen"></iframe>
+    </div>
+    <div style="padding:10px 16px;font-size:13px;color:#aaa">
+      ✨ <span id="modalLicao">—</span>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-c btn-green" onclick="copiarLinkAtual()">📋 COPIAR LINK</button>
+      <button class="btn-c btn-blue" onclick="compartilharAtual()">🔗 COMPARTILHAR</button>
+      <button class="btn-c btn-gold" onclick="compartilharWhatsApp()">📲 WHATSAPP</button>
+      <button class="btn-c btn-dark" onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- IA ASSISTENTE -->
+<div class="ai-assistant">
+  <button class="ai-btn" id="aiToggle" onclick="alternarIA()">🧠</button>
+  <div class="ai-panel" id="aiPanel">
+    <div class="ai-header">
+      <strong>🧠 Assistente NUVIX IA</strong>
+      <button class="modal-close" onclick="alternarIA()">×</button>
+    </div>
+    <div class="ai-body" id="aiCorpo">
+      <div class="ai-msg ai">
+        <strong>🤖 Olá! 👋</strong><br>
+        Eu sou a <strong>NUVIX IA</strong>, sua assistente inteligente! Posso ajudar com:<br>
+        • ➕ Adicionar filmes<br>
+        • 💾 Salvar e restaurar<br>
+        • 🔍 Buscar e organizar<br>
+        • 📺 Espelhar na TV<br>
+        • 💰 Dicas de ganhos<br>
+        • ❓ Solucionar problemas<br><br>
+        Digite abaixo o que precisa ou pergunte qualquer coisa! 😊
+      </div>
+    </div>
+    <div class="ai-input-wrap">
+      <input id="aiInput" placeholder="Pergunte para a IA..." onkeydown="if(event.key==='Enter')enviarIA()">
+      <button class="btn-c btn-gold" onclick="enviarIA()">➤</button>
+    </div>
+  </div>
+</div>
 
 <script>
-// TV
-document.getElementById('btnTV').onclick=async()=>{
-  try{ if(!('PresentationRequest' in window)) return alert('Use Chrome!'); const r=new PresentationRequest([location.href]); await r.start(); document.getElementById('btnTV').innerText='🔴 NA TV'; document.getElementById('btnTV').style.background='#00c853'; }catch(e){alert('Instala AirScreen na TV Box na mesma Wi-Fi');}
-};
+// ==================== DADOS BASE ====================
+const filmesBase = [
+  {id:1,titulo:"Jumanji — Bem-Vindo à Selva",cat:"Filmes",li:"Aventura e coragem",yt:"2QKg5SZ_35I",ano:2024,thumb:"https://img.youtube.com/vi/2QKg5SZ_35I/hqdefault.jpg"},
+  {id:2,titulo:"Thor — Amor e Trovão",cat:"Vingadores",li:"O amor é a maior força",yt:"Go8nTmfrQd8",ano:2024,thumb:"https://img.youtube.com/vi/Go8nTmfrQd8/hqdefault.jpg"},
+  {id:3,titulo:"Senhor dos Anéis",cat:"Filmes",li:"A amizade vence tudo",yt:"_nkyR6vOH3E",ano:2024,thumb:"https://img.youtube.com/vi/_nkyR6vOH3E/hqdefault.jpg"},
+  {id:4,titulo:"Velozes e Furiosos 10",cat:"Ação",li:"Família é tudo",yt:"aOb15GVF2R4",ano:2024,thumb:"https://img.youtube.com/vi/aOb15GVF2R4/hqdefault.jpg"},
+  {id:5,titulo:"John Wick 4",cat:"Ação",li:"Determinação até o fim",yt:"qEVU3r4-g5Q",ano:2024,thumb:"https://img.youtube.com/vi/qEVU3r4-g5Q/hqdefault.jpg"},
+  {id:6,titulo:"Missão Impossível",cat:"Ação",li:"Coragem e confiança",yt:"2m1SmHhFfsU",ano:2024,thumb:"https://img.youtube.com/vi/2m1SmHhFfsU/hqdefault.jpg"},
+  {id:7,titulo:"O Protetor 3",cat:"Ação",li:"Justiça para todos",yt:"19ikl8vx8ZM",ano:2024,thumb:"https://img.youtube.com/vi/19ikl8vx8ZM/hqdefault.jpg"},
+  {id:8,titulo:"Resgate 2",cat:"Ação",li:"Força e amor",yt:"Y274jZs5s2U",ano:2024,thumb:"https://img.youtube.com/vi/Y274jZs5s2U/hqdefault.jpg"},
+  {id:9,titulo:"Cobra Kai — Temporada 1",cat:"Cobra Kai",li:"Equilíbrio e respeito",yt:"xCwwxNbtK6Y",ano:2024,thumb:"https://img.youtube.com/vi/xCwwxNbtK6Y/hqdefault.jpg"},
+  {id:10,titulo:"Karate Kid",cat:"Cobra Kai",li:"Mentoria e humildade",yt:"2pT5M-b5o5c",ano:2024,thumb:"https://img.youtube.com/vi/2pT5M-b5o5c/hqdefault.jpg"},
+  {id:11,titulo:"Extraordinário",cat:"Gratidão",li:"Gentileza transforma vidas",yt:"N8Zb6h2o6dE",ano:2024,thumb:"https://img.youtube.com/vi/N8Zb6h2o6dE/hqdefault.jpg"},
+  {id:12,titulo:"A Cabana",cat:"Gratidão",li:"Perdoar é libertar",yt:"8TBoJ1o6iB4",ano:2024,thumb:"https://img.youtube.com/vi/8TBoJ1o6iB4/hqdefault.jpg"},
+  {id:13,titulo:"Milagre na Cela 7",cat:"Gratidão",li:"Amor incondicional",yt:"6o1o2p3q4r5",ano:2024,thumb:"https://img.youtube.com/vi/6o1o2p3q4r5/hqdefault.jpg"},
+  {id:14,titulo:"Forrest Gump",cat:"Gratidão",li:"Agradeça cada dia",yt:"bLvqoHBptjg",ano:2024,thumb:"https://img.youtube.com/vi/bLvqoHBptjg/hqdefault.jpg"},
+  {id:15,titulo:"Super Man — O Homem de Aço",cat:"Super Man",li:"Humildade é poder",yt:"T6DJcgm3wNY",ano:2024,thumb:"https://img.youtube.com/vi/T6DJcgm3wNY/hqdefault.jpg"},
+  {id:16,titulo:"Rocky Balboa",cat:"Rocky/Rambo",li:"Levante-se sempre",yt:"3EU13Zv2xEA",ano:2024,thumb:"https://img.youtube.com/vi/3EU13Zv2xEA/hqdefault.jpg"},
+  {id:17,titulo:"Creed",cat:"Rocky/Rambo",li:"Herde com honra",yt:"Uv554B7YHk4",ano:2024,thumb:"https://img.youtube.com/vi/Uv554B7YHk4/hqdefault.jpg"},
+  {id:18,titulo:"Mr. Bean — Férias",cat:"Mr Bean",li:"Rir é simples",yt:"hOHKltAiKXQ",ano:2024,thumb:"https://img.youtube.com/vi/hOHKltAiKXQ/hqdefault.jpg"},
+  {id:19,titulo:"Vingadores — Ultimato",cat:"Vingadores",li:"Sacrifício e união",yt:"TcMBFSGViig",ano:2024,thumb:"https://img.youtube.com/vi/TcMBFSGViig/hqdefault.jpg"},
+  {id:20,titulo:"Pantera Negra",cat:"Vingadores",li:"Seu legado vive",yt:"_Z3QKkl1WyM",ano:2024,thumb:"https://img.youtube.com/vi/_Z3QKkl1WyM/hqdefault.jpg"},
+];
 
-let videos=[], idx=0, db, dubAtivo=false, synth=window.speechSynthesis, legendas=[], legIndex=0, legTimer=null;
-const video=document.getElementById('video'), yt=document.getElementById('yt'), nome=document.getElementById('nome'), lista=document.getElementById('lista'), cont=document.getElementById('cont'), statusEl=document.getElementById('status'), dubStatus=document.getElementById('dubStatus');
+// ==================== ESTADO GLOBAL ====================
+let filmes = [];
+let saldo = parseFloat(localStorage.getItem('gratiflix_saldo') || '0');
+let historicoVisualizacoes = JSON.parse(localStorage.getItem('gratiflix_visualizacoes') || '[]');
+let filmeAtual = null;
+let instalacaoDisponivel = false;
 
-const reqIDB=indexedDB.open('V86DB_VID',2); reqIDB.onupgradeneeded=e=>{if(!e.target.result.objectStoreNames.contains('videos')) e.target.result.createObjectStore('videos',{keyPath:'id',autoIncrement:true});};
-reqIDB.onsuccess=e=>{db=e.target.result; carregarLocal();};
-function carregarLocal(){ db.transaction('videos','readonly').objectStore('videos').getAll().onsuccess=e=>{ e.target.result.forEach(r=>{videos.push({id:r.id, nome:r.nome, url:r.url||URL.createObjectURL(r.blob), tipo:r.tipo||'mp4', thumb:r.thumb||'', videoId:r.videoId||'', blobId:r.id});}); montar(); };}
-function montar(){ cont.innerText=videos.length+' filmes salvos'; render(); if(videos.length) carregar(0); }
-function render(){ lista.innerHTML=''; videos.forEach((m,i)=>{ const d=document.createElement('div'); d.className='item'+(i==idx?' active':''); const img=document.createElement('img'); img.src=m.thumb||(m.videoId?'https://i.ytimg.com/vi/'+m.videoId+'/mqdefault.jpg':'https://via.placeholder.com/90x55/111/FFD700?text=🎬'); const txt=document.createElement('div'); txt.innerHTML='<b>'+m.nome+'</b><small>▶️ YouTube</small>'; txt.onclick=()=>carregar(i); const b=document.createElement('button'); b.className='del'; b.innerText='🗑️'; b.onclick=()=>{ const tx=db.transaction('videos','readwrite'); tx.objectStore('videos').delete(m.blobId); tx.oncomplete=()=>location.reload(); }; d.appendChild(img); d.appendChild(txt); d.appendChild(b); lista.appendChild(d); });}
-function carregar(i){ pararDub(); idx=i; const m=videos[i]; if(!m) return; nome.innerText=m.nome; if(m.tipo=='yt'){ video.style.display='none'; video.pause(); yt.style.display='block'; yt.src='https://www.youtube.com/embed/'+m.videoId+'?autoplay=1&cc_load_policy=1&cc_lang_pref=en'; statusEl.innerText='🔴 Tocando: '+m.nome; } else { yt.style.display='none'; yt.src=''; video.style.display='block'; video.src=m.url; video.play(); } render(); }
-function pp(){ const m=videos[idx]; if(m&&m.tipo!='yt'){ video.paused?video.play():video.pause(); } }
-function prox(){ if(videos.length) carregar((idx+1)%videos.length); } function ant(){ carregar((idx-1+videos.length)%videos.length); }
-function getYtId(u){ const m=u.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/|youtube\.com\/embed\/)([^&?/]+)/); return m?m[1]:null; }
-function addLink(){ const link=prompt('Cole link YouTube:'); if(!link) return; const titulo=prompt('Nome:')||'Filme'; const id=getYtId(link); if(!id){alert('Link inválido'); return;} const tx=db.transaction('videos','readwrite'); tx.objectStore('videos').add({nome:titulo, url:'https://www.youtube.com/embed/'+id, tipo:'yt', thumb:'https://i.ytimg.com/vi/'+id+'/mqdefault.jpg', videoId:id, blob:new Blob([])}); tx.oncomplete=()=>location.reload(); }
-
-// BUSCA QUE FUNCIONA (YouTube direto)
-async function buscar(){
-  const q=document.getElementById('q').value.trim(); if(!q) return;
-  statusEl.innerText='🔍 Buscando '+q+'...';
-  try{
-    const ytUrl='https://www.youtube.com/results?search_query='+encodeURIComponent(q+' filme completo dublado');
-    const proxy='https://api.allorigins.win/raw?url='+encodeURIComponent(ytUrl);
-    const res=await fetch(proxy); const html=await res.text();
-    const regex=/\"videoId\":\"([a-zA-Z0-9_-]{11})\"/g;
-    const tRegex=/\"title\":{\"runs\":\[{\"text\":\"([^\"]+)\"/g;
-    let ids=[...html.matchAll(regex)].map(m=>m[1]);
-    let titles=[...html.matchAll(tRegex)].map(m=>m[1]);
-    ids=[...new Set(ids)].slice(0,10);
-    if(!ids.length) throw 'vazio';
-    ids.forEach((vid,i)=>{ if(videos.some(m=>m.videoId==vid)) return; const tx=db.transaction('videos','readwrite'); tx.objectStore('videos').add({nome:titles[i]||q+' Filme '+(i+1), url:'https://www.youtube.com/embed/'+vid, tipo:'yt', thumb:'https://i.ytimg.com/vi/'+vid+'/mqdefault.jpg', videoId:vid, blob:new Blob([])}); });
-    statusEl.innerText='✅ '+ids.length+' encontrados!'; setTimeout(()=>location.reload(),900);
-  }catch(e){
-    statusEl.innerText='✅ Usando acervo offline';
-    const fb=[{n:'Leonardo DiCaprio - O Lobo de Wall Street Dublado',v:'Po0jY4v2l2k'},{n:'Titanic Dublado Completo',v:'kVrqfYjkTdQ'}];
-    fb.forEach(f=>{ const tx=db.transaction('videos','readwrite'); tx.objectStore('videos').add({nome:f.n, url:'https://www.youtube.com/embed/'+f.v, tipo:'yt', thumb:'https://i.ytimg.com/vi/'+f.v+'/mqdefault.jpg', videoId:f.v, blob:new Blob([])}); }); setTimeout(()=>location.reload(),800);
-  }
+// ==================== INICIALIZAÇÃO ====================
+function init(){
+  carregarFilmes();
+  atualizarSaldo();
+  renderizar();
+  setupInstalacaoPWA();
+  mostrarMsg('success','✅ GRATIFLIX carregado com sucesso! '+filmes.length+' filmes disponíveis.');
 }
 
-// === SISTEMA DE DUBLAGEM PT-BR ===
-async function toggleDub(){
-  if(dubAtivo){ pararDub(); return; }
-  const m=videos[idx]; if(!m||!m.videoId){ alert('Selecione um filme do YouTube primeiro!'); return; }
-  dubAtivo=true; document.getElementById('btnDub').innerText='⏹️ PARAR DUB'; document.getElementById('btnDub').style.background='#ff2a2a!important';
-  dubStatus.innerText='🎤 Baixando legenda em inglês...';
-
-  try{
-    // Pega legenda em inglês do YouTube
-    const urlLeg='https://video.google.com/timedtext?lang=en&v='+m.videoId;
-    const proxyLeg='https://api.allorigins.win/raw?url='+encodeURIComponent(urlLeg);
-    const r=await fetch(proxyLeg); const txt=await r.text();
-
-    if(!txt.includes('<text')){ // sem legenda, usa tradutor de áudio simulado
-      dubStatus.innerText='🔊 Modo dublagem por voz: Fale próximo ao celular';
-      iniciarReconhecimentoVoz();
-      return;
+function carregarFilmes(){
+  const salvo = localStorage.getItem('gratiflix_fixo');
+  if(salvo){
+    try{
+      filmes = JSON.parse(salvo);
+    }catch{
+      filmes = [...filmesBase];
+      salvarFixo(true);
     }
-    // Parse legenda XML
-    const parser=new DOMParser(); const xml=parser.parseFromString(txt,"text/xml");
-    const nodes=[...xml.getElementsByTagName('text')];
-    legendas=nodes.map(n=>({start:parseFloat(n.getAttribute('start')), dur:parseFloat(n.getAttribute('dur')), text:n.textContent}));
-
-    dubStatus.innerText='🌎 Traduzindo '+legendas.length+' frases para PT-BR...';
-
-    // Traduz em lotes (primeiras 20 frases pra ser rápido)
-    for(let i=0;i<Math.min(legendas.length,20);i++){
-      const orig=legendas[i].text;
-      try{
-        const tr=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(orig)+'&langpair=en|pt-br');
-        const j=await tr.json();
-        legendas[i].pt=j.responseData.translatedText||orig;
-      }catch{ legendas[i].pt=orig; }
-    }
-
-    dubStatus.innerText='✅ Dublagem ativa! Áudio em PT-BR';
-    tocarLegendasDubladas();
-
-  }catch(e){
-    dubStatus.innerText='🎤 Modo microfone: Ative o som do filme';
-    iniciarReconhecimentoVoz();
+  }else{
+    filmes = [...filmesBase];
+    salvarFixo(true);
   }
 }
 
-function tocarLegendasDubladas(){
-  let i=0;
-  function falarProxima(){
-    if(!dubAtivo||i>=legendas.length) return;
-    const frase=legendas[i].pt||legendas[i].text;
-    const ut=new SpeechSynthesisUtterance(frase);
-    ut.lang='pt-BR'; ut.rate=1.1; ut.volume=1;
-    ut.onend=()=>{ i++; setTimeout(falarProxima, 300); };
-    synth.speak(ut);
-    dubStatus.innerText='🗣️ '+frase.substring(0,40)+'...';
-  }
-  falarProxima();
+// ==================== SALVAMENTO ====================
+function salvarFixo(silencioso=false){
+  localStorage.setItem('gratiflix_fixo',JSON.stringify(filmes));
+  if(!silencioso) mostrarMsg('success','💾 SALVO FIXO! '+filmes.length+' filmes nunca somem mais! ✅');
 }
 
-function iniciarReconhecimentoVoz(){
-  if(!('webkitSpeechRecognition' in window) &&!('SpeechRecognition' in window)){
-    dubStatus.innerText='❌ Seu navegador não suporta dublagem por microfone. Use Chrome.';
+function restaurar(){
+  const backup = localStorage.getItem('gratiflix_fixo');
+  if(!backup){
+    mostrarMsg('warning','⚠️ Nenhum backup fixo encontrado! Clique em SALVAR FIXO primeiro.');
     return;
   }
-  const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
-  const rec=new Rec(); rec.lang='en-US'; rec.continuous=true; rec.interimResults=false;
-  rec.onresult=async(e=>{
-    const texto=e.results[e.results.length-1][0].transcript;
-    dubStatus.innerText='EN: '+texto;
+  if(confirm('🔄 Restaurar backup fixo com '+JSON.parse(backup).length+' filmes?')){
     try{
-      const tr=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(texto)+'&langpair=en|pt-br');
-      const j=await tr.json(); const pt=j.responseData.translatedText;
-      const ut=new SpeechSynthesisUtterance(pt); ut.lang='pt-BR'; synth.speak(ut);
-      dubStatus.innerText='🇧🇷 '+pt;
-    }catch{}
+      filmes = JSON.parse(backup);
+      renderizar();
+      mostrarMsg('success','✅ RESTAURADO! '+filmes.length+' filmes carregados.');
+    }catch{
+      mostrarMsg('error','❌ Erro ao restaurar o backup');
+    }
+  }
+}
+
+function exportar(){
+  const dados = localStorage.getItem('gratiflix_fixo');
+  if(!dados){mostrarMsg('warning','Nenhum dado para exportar');return}
+  const blob = new Blob([dados],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'gratiflix_backup_'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  mostrarMsg('success','📤 Backup exportado com sucesso!');
+}
+
+function importarArquivo(e){
+  const arq = e.target.files[0];
+  if(!arq)return;
+  const leitor = new FileReader();
+  leitor.onload = function(ev){
+    try{
+      const dados = JSON.parse(ev.target.result);
+      if(!Array.isArray(dados))throw new Error('Não é uma lista');
+      filmes = dados;
+      salvarFixo(true);
+      renderizar();
+      mostrarMsg('success','✅ Importado! '+filmes.length+' filmes carregados.');
+    }catch{
+      mostrarMsg('error','❌ Arquivo inválido. Selecione um arquivo .json de backup.');
+    }
   };
-  rec.start(); window.recDub=rec;
-  dubStatus.innerText='🎧 Ouvindo filme em inglês... deixe volume alto';
+  leitor.readAsText(arq);
+  e.target.value = '';
 }
 
-function pararDub(){
-  dubAtivo=false; synth.cancel(); if(window.recDub) try{window.recDub.stop();}catch{}
-  document.getElementById('btnDub').innerText='🇧🇷 DUBLAR PT-BR'; document.getElementById('btnDub').style.background='#00d26a';
-  dubStatus.innerText='';
-  clearInterval(legTimer);
+function confirmarReset(){
+  if(confirm('⚠️ Tem CERTEZA? Isso apaga TODOS os seus filmes!')){
+    if(confirm('🚨 ÚLTIMA CHANCE! Quer mesmo apagar tudo e voltar aos filmes originais?')){
+      localStorage.removeItem('gratiflix_fixo');
+      localStorage.removeItem('gratiflix_saldo');
+      localStorage.removeItem('gratiflix_visualizacoes');
+      filmes = [...filmesBase];
+      saldo = 0;
+      atualizarSaldo();
+      renderizar();
+      mostrarMsg('success','🗑️ Reset completo! Restaurado com os filmes originais.');
+    }
+  }
 }
 
-document.getElementById('file').addEventListener('change', async e=>{ for(const file of e.target.files){ await new Promise(r=>{ const tx=db.transaction('videos','readwrite'); tx.objectStore('videos').add({nome:file.name, blob:file, tipo:'mp4', url:'', thumb:''}); tx.oncomplete=r; }); } location.reload(); });
-</script>
-</body>
-</html>
+// ==================== GANHOS ====================
+function registrarVisualizacao(filmeId,titulo){
+  const jaVisto = historicoVisualizacoes.some(v=>v.id===filmeId);
+  const valor = jaVisto ? 0.01 + Math.random()*0.02 : 0.05 + Math.random()*0.10;
+  historicoVisualizacoes.unshift({
+    id:filmeId,
+    titulo:titulo,
+    data:new Date().toISOString(),
+    valor:valor.toFixed(2)
+  });
+  if(historicoVisualizacoes.length>100) historicoVisualizacoes.length=100;
+  localStorage.setItem('gratiflix_visualizacoes',JSON.stringify(historicoVisualizacoes));
+  saldo += valor;
+  localStorage.setItem('gratiflix_saldo',saldo.toFixed(2));
+  atualizarSaldo();
+  return valor;
+}
+
+function atualizarSaldo(){
+  document.getElementById('saldoExibicao').textContent =
+    'R$ '+parseFloat(saldo).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+// ==================== LINKS YOUTUBE ====================
+function extrairYTId(url){
+  if(!url)return null;
+  const m = url.match(/(?:v=|youtu\.be\/|embed\/|shorts\/|\/watch\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1].trim() : null;
+}
+
+// ==================== ADICIONAR FILME/PASTA ====================
+function abrirAddYT(){
+  document.getElementById('adminPanel').classList.add('show');
+  document.getElementById('ytLink').focus();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function abrirAddPasta(){
+  const nome = prompt('📁 Nome da nova Pasta/Gênero:');
+  if(!nome)return;
+  if(filmes.some(f=>f.cat===nome)){
+    mostrarMsg('warning','⚠️ Já existe uma pasta com esse nome!');
+    return;
+  }
+  filmes.unshift({
+    id:Date.now(),
+    titulo:'📂 Pasta: '+nome,
+    cat:nome,
+    li:'Adicione filmes aqui',
+    yt:'T6DJcgm3wNY',
+    thumb:'https://img.youtube.com/vi/T6DJcgm3wNY/hqdefault.jpg',
+    ano:new Date().getFullYear()
+  });
+  salvarFixo();
+  renderizar();
+  mostrarMsg('success','📂 Pasta "'+nome+'" criada! Selecione-a na lista para adicionar filmes.');
+}
+
+function addFilme(){
+  const link = document.getElementById('ytLink').value.trim();
+  const id = extrairYTId(link);
+  const titulo = document.getElementById('fTitulo').value.trim() || 'Filme sem título';
+  const cat = document.getElementById('fCat').value || 'Outros';
+  const licao = document.getElementById('fLicao').value.trim() || 'Assista e inspire-se!';
+  const ano = document.getElementById('fAno').value || new Date().getFullYear();
+
+  if(!id){
+    mostrarMsg('error','❌ Link do YouTube inválido! Copie um link completo do YouTube.');
+    return;
+  }
+
+  const novo = {
+    id:Date.now(),
+    titulo:titulo,
+    cat:cat,
+    li:licao,
+    yt:id,
+    thumb:`https://img.youtube.com/vi/${id}/hqdefault.jpg`,
+    ano:parseInt(ano)
+  };
+
+  filmes.unshift(novo);
+  salvarFixo();
+  renderizar();
+  limparCampos();
+  mostrarMsg('success','✅ "'+titulo+'" ADICIONADO e SALVO FIXO! Roda dentro do app.');
+}
+
+function limparCampos(){
+  document.getElementById('ytLink').value='';
+  document.getElementById('fTitulo').value='';
+  document.getElementById('fLicao').value='';
+  document.getElementById('fCat').value='';
+}
+
+function fecharAdmin(){
+  document.getElementById('adminPanel').classList.remove('show');
+  limparCampos();
+}
+
+// ==================== AÇÕES NOS FILMES ====================
+function editarFilme(id){
+  const f = filmes.find(x=>x.id===id);
+  if(!f)return;
+  const novoTitulo = prompt('✏️ Novo título:',f.titulo);
+  if(novoTitulo && novoTitulo.trim()){
+    f.titulo = novoTitulo.trim();
+    salvarFixo();
+    renderizar();
+    mostrarMsg('success','✏️ Título atualizado!');
+  }
+}
+
+function apagarFilme(id){
+  if(!confirm('🗑️ Apagar este filme permanentemente?'))return;
+  filmes = filmes.filter(f=>f.id!==id);
+  salvarFixo();
+  renderizar();
+  mostrarMsg('success','🗑️ Filme removido!');
+}
+
+function copiarLinkYT(id){
+  const f = filmes.find(x=>x.id===id);
+  if(!f)return;
+  const url = 'https://www.youtube.com/watch?v='+f.yt;
+  navigator.clipboard.writeText(url)
+    .then(()=>mostrarMsg('success','📋 Link copiado! '+url))
+    .catch(()=>prompt('Copie manualmente:',url));
+}
+
+function compartilharFilme(id){
+  const f = filmes.find(x=>x.id===id);
+  if(!f)return;
+  const url = 'https://bancogratidaooficial-ops.github.io/gratiflix-filmes/?v='+f.yt;
+  if(navigator.share){
+    navigator.share({title:'GRATIFLIX — '+f.titulo,text:'Assista no GRATIFLIX: '+f.li,url:url});
+  }else{
+    navigator.clipboard.writeText(url)
+      .then(()=>mostrarMsg('success','🔗 Link copiado!'))
+      .catch(()=>prompt('Link:',url));
+  }
+}
+
+// ==================== REPRODUZIR FILME ====================
+function abrirFilme(id){
+  const f = filmes.find(x=>x.id===id);
+  if(!f)return;
+  filmeAtual = f;
+  const valorGanho = registrarVisualizacao(f.id,f.titulo);
+  document.getElementById('modalTitulo').textContent = f.titulo+' ('+f.ano+')';
+  document.getElementById('modalLicao').textContent = '✨ '+f.li;
+  document.getElementById('videoPlayer').src = 'https://www.youtube.com/embed/'+f.yt+'?autoplay=1&rel=0&modestbranding=1';
+  document.getElementById('videoModal').classList.add('active');
+  mostrarMsg('success','💰 +R$ '+valorGanho.toFixed(2)+' creditado! Continue assistindo e ganhando 💚');
+}
+
+function fecharModal(){
+  document.getElementById('videoModal').classList.remove('active');
+  document.getElementById('videoPlayer').src = '';
+  filmeAtual = null;
+}
+
+function copiarLinkAtual(){
+  if(!filmeAtual)return;
+  const url = 'https://www.youtube.com/watch?v='+filmeAtual.yt;
+  navigator.clipboard.writeText(url)
+    .then(()=>mostrarMsg('success','📋 Link copiado!'));
+}
+
+function compartilharAtual(){
+  if(!filmeAtual)return;
+  compartilharFilme(filmeAtual.id);
+}
+
+function compartilharWhatsApp(){
+  if(!filmeAtual)return;
+  const texto = encodeURIComponent('🎬 Assista no GRATIFLIX: '+filmeAtual.titulo+'\n✨ '+filmeAtual.li+'\n\n👉 https://bancogratidaooficial-ops.github.io/gratiflix-filmes/?v='+filmeAtual.yt);
+  window.open('https://wa.me/?text='+texto,'_blank');
+}
+
+// ==================== CONVIDAR E COMPARTILHAR APP ====================
+function convidar(){
+  const link = 'https://bancogratidaooficial-ops.github.io/gratiflix-filmes/?ref=GRATIDAO41';
+  const msg = '🎬 GRATIFLIX — 72+ filmes grátis!\n💰 Ganhe R$2,50 por cada amigo que você convidar!\n👉 '+link;
+  if(navigator.share){
+    navigator.share({title:'GRATIFLIX — Convide e Ganhe!',text:msg,url:link});
+  }else{
+    prompt('📲 Copie e compartilhe:',msg);
+  }
+}
+
+function compartilharApp(){
+  const link = 'https://bancogratidaooficial-ops.github.io/gratiflix-filmes/';
+  const msg = '🎬 Conheça o GRATIFLIX — filmes grátis que te inspiram! ✨ '+link;
+  if(navigator.share){
+    navigator.share({title:'GRATIFLIX',text:msg,url:link});
+  }else{
+    navigator.clipboard.writeText(msg).then(()=>mostrarMsg('success','🔗 Link copiado!'));
+  }
+}
+
+// ==================== BUSCA E RENDER ====================
+function onBusca(){
+  const termo = document.getElementById('busca').value.trim();
+  const id = extrairYTId(termo);
+  if(id && confirm('🔗 Detectei um link do YouTube! Codificar e salvar agora?')){
+    document.getElementById('ytLink').value = termo;
+    abrirAddYT();
+    return;
+  }
+  renderizar();
+}
+
+function renderizar(){
+  const busca = document.getElementById('busca').value.toLowerCase().trim();
+  const conteudo = document.getElementById('conteudo');
+  conteudo.innerHTML = '';
+
+  const grupos = {};
+  filmes.filter(f=>{
+    if(!busca)return true;
+    return f.titulo.toLowerCase().includes(busca) ||
+           f.cat.toLowerCase().includes(busca) ||
+           f.li.toLowerCase().includes(busca);
+  }).forEach(f=>{
+    if(!grupos[f.cat]) grupos[f.cat] = [];
+    grupos[f.cat].push(f);
+  });
+
+  if(Object.keys(grupos).length===0){
+    conteudo.innerHTML = `<div class="empty-state">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4"/>
+      </svg>
+      <p>Nenhum filme encontrado. Que tal adicionar um? 🎬</p>
+    </div>`;
+    return;
+  }
+
+  for(let cat in grupos){
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.innerHTML = `
+      <h2>
+        ${cat}
+        <span style="font-size:12px;color:#888;font-weight:normal">${grupos[cat].length} filme(s)</span>
+      </h2>
+      <div class="grid"></div>
+    `;
+    conteudo.appendChild(sec);
+    const grid = sec.querySelector('.grid');
+
+    grupos[cat].forEach(f=>{
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${f.thumb}" loading="lazy" alt="${f.titulo}" onclick="abrirFilme(${f.id})">
+        <span class="badge">${f.cat}</span>
+        <div class="actions-card">
+          <button class="edit" title="Editar" onclick="event.stopPropagation();editarFilme(${f.id})">✏️</button>
+          <button class="del" title="Excluir" onclick="event.stopPropagation();apagarFilme(${f.id})">🗑️</button>
+          <button class="copy" title="Copiar link YT" onclick="event.stopPropagation();copiarLinkYT(${f.id})">📋</button>
+          <button class="share" title="Compartilhar" onclick="event.stopPropagation();compartilharFilme(${f.id})">🔗</button>
+        </div>
+        <div class="card-body" onclick="abrirFilme(${f.id})">
+          <div class="card-title">${f.titulo}</div>
+          <div class="card-li">✨ ${f.li} · ${f.ano||'s/d'}</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+}
+
+// ==================== MENSAGENS ====================
+function mostrarMsg(tipo,texto){
+  const caixa = document.getElementById('statusMsg');
+  caixa.className = 'msg-box '+tipo;
+  caixa.innerHTML = texto;
+  clearTimeout(window._tmMsg);
+  window._tmMsg = setTimeout(()=>{
+    caixa.className = 'msg-box';
+    caixa.innerHTML = '💾 Seus filmes salvos ficam guardados permanentemente. Clique em <strong>SALVAR FIXO</strong> para garantir!';
+  },5000);
+}
+
+// ==================== ESPANHAMENTO NA TV ====================
+function abrirBroadcast(){
+  document.getElementById('broadcastBar').classList.toggle('show');
+  atualizarStatusCast();
+}
+
+function atualizarStatusCast(){
+  const status = document.getElementById('castStatus');
+  if('getDisplayMedia' in navigator || 'chrome' in window && window.chrome.cast){
+    status.textContent = 'Pronto para conectar';
+    status.style.color = '#69f0ae';
+  }else{
+    status.textContent = 'Não suportado — use Web Video Caster / AirScreen';
+    status.style.color = '#ffca28';
+  }
+}
+
+function procurarDispositivos(){
+  const dicas = `📺 Para espelhar na TV Box / Smart TV:
+
+✅ Opção 1 — Web Video Caster (recomendado)
+• Baixe o app "Web Video Caster" na sua TV Box/Smart TV
+• Abra este mesmo endereço no app
+• Os vídeos rodarão direto na TV!
+
+✅ Opção 2 — AirScreen (para Android TV)
+• Instale o AirScreen na TV
+• Use a função "Transmitir" do navegador
+
+✅ Opção 3 — Espelhamento nativo
+• No celular: Compartilhar tela / Transmitir
+• Conecte na mesma rede Wi-Fi da TV
+
+💡 Certifique-se de que celular e TV estão na MESMA rede Wi-Fi!`;
+  alert(dicas);
+}
+
+function pararBroadcast(){
+  document.getElementById('broadcastBar').classList.remove('show');
+  mostrarMsg('success','📺 Transmissão encerrada.');
+}
+
+// ==================== IA ASSISTENTE NUVIX ====================
+function alternarIA(){
+  document.getElementById('aiPanel').classList.toggle('active');
+}
+
+function enviarIA(){
+  const entrada = document.getElementById('aiInput');
+  const pergunta = entrada.value.trim();
+  if(!pergunta)return;
+  adicionarMsgIA(pergunta,'user');
+  entrada.value = '';
+  setTimeout(()=>processarIA(pergunta),600);
+}
+
+function adicionarMsgIA(texto,quem){
+  const corpo = document.getElementById('aiCorpo');
+  const msg = document.createElement('div');
+  msg.className = 'ai-msg '+quem;
+  msg.innerHTML = quem==='ai' ? '<strong>🤖 NUVIX IA:</strong><br>'+texto : '<strong>👤 Você:</strong><br>'+texto;
+  corpo.appendChild(msg);
+  corpo.scrollTop = corpo.scrollHeight;
+}
+
+function processarIA(pergunta){
+  const p = pergunta.toLowerCase();
+  let resp = '';
+
+  if(/adicionar|novo|incluir|colocar/.test(p)){
+    resp = '📌 <strong>Para adicionar um filme:</strong><br>1️⃣ Clique em ➕ LINK YT no topo<br>2️⃣ Cole o link completo do YouTube<br>3️⃣ Preencha Título, Gênero e Lição<br>4️⃣ Clique em ✅ ADICIONAR<br><br>O filme entra automaticamente e é salvo permanentemente! 💚';
+  }
+  else if(/salvar|guardar|fixo|permanente/.test(p)){
+    resp = '💾 <strong>Para salvar seus filmes:</strong><br>• Clique no botão <strong>💾 SALVAR FIXO</strong><br>• Seus filmes ficam guardados para sempre<br>• Mesmo fechando o navegador, voltam quando abrir<br>• Para recuperar, clique em 🔄 RESTAURAR<br><br>⚠️ Sempre clique em SALVAR FIXO depois de alterar!';
+  }
+  else if(/restaurar|voltar|recuperar/.test(p)){
+    resp = '🔄 <strong>Para restaurar:</strong><br>1️⃣ Clique em 🔄 RESTAURAR<br>2️⃣ Confirme a ação<br>3️⃣ Seus filmes salv
