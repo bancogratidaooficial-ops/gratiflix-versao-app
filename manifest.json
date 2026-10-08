@@ -1,0 +1,57 @@
+{
+  "name": "GRATIFLIX Dourado - Assista e Ganhe",
+  "short_name": "GRATIFLIX",
+  "description": "Instale e ganhe saldo em sua carteira! Convide, compartilhe e assista vídeos para impulsionar seus ganhos. 72 filmes + Chaves + Doramas",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070707",
+  "theme_color": "#ffcc00",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://img.youtube.com/vi/lpeIKPBsuLc/hqdefault.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "💰 Meus Ganhos",
+      "short_name": "Ganhos",
+      "description": "Veja seu saldo e ganhe assistindo",
+      "url": "./index.html#ganhos",
+      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "📲 Convidar e Ganhar R$2,50",
+      "short_name": "Convidar",
+      "description": "Convide amigos e ganhe",
+      "url": "./index.html?ref=convite",
+      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "📺 Espelhar na TV",
+      "short_name": "TV",
+      "description": "Assista na TV Box",
+      "url": "./index.html#tv",
+      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png", "sizes": "96x96" }]
+    }
+  ],
+  "categories": ["entertainment", "video"],
+  "lang": "pt-BR",
+  "dir": "ltr"
+}
