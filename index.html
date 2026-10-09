@@ -116,7 +116,19 @@ if ('serviceWorker' in navigator) {
 <p><b>1. Web Video Caster (Android TV Box):</b><br>• Instale Web Video Caster na TV Box e no celular<br>• Conecte na mesma Wi-Fi<br>• No Gratiflix clique em Compartilhar → Abrir com Web Video Caster</p><br>
 <p><b>2. AirScreen (Smart TV):</b><br>• Instale AirScreen na sua Smart TV<br>• No celular: Transmitir tela<br>• Escolha sua TV</p><br>
 <p><b>3. Copiar link:</b> <span id="tvLink" style="color:#ffcc00;word-break:break-all"></span></p><br>
-<button class="btn-c btn-gold" style="width:100%" onclick="document.getElementById('modalTV').classList.remove('active')">ENTENDI</button>
+<button class="btn-c btn-gold" style="width:100%" onclick="function abrir(id){
+ let f=filmes.find(x=>x.id===id); 
+ atual=id; 
+ let ganho=(Math.random()*0.72+0.15).toFixed(2); 
+ saldo+=parseFloat(ganho); vistos++; save(); 
+ document.getElementById('mTitle').innerText=f.titulo; 
+ document.getElementById('mGanho').innerText=`+R$${ganho}`; 
+ document.getElementById('mDesc').innerText=`Lição: ${f.li}. Assistindo você ganhou R$${ganho}! Saldo total: R$${saldo.toFixed(2)}. Contato (41) 99893-6718`; 
+ // CORREÇÃO - usa youtube.com normal + origin + sem autoplay forçado
+ document.getElementById('mVideo').src=`https://www.youtube.com/embed/${f.yt}?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}`; 
+ document.getElementById('modal').classList.add('active'); 
+ setTimeout(()=>toast(`💸 +R$${ganho} por assistir ${f.titulo}!`),800)
+}
 </div></div></div>
 <script>
 let filmesBase=[
