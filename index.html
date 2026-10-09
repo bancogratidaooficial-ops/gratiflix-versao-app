@@ -194,7 +194,13 @@ function resetar(){if(confirm('⚠️ RESETAR TUDO? Vai apagar todos os filmes a
 function delFilme(id){if(!confirm('Apagar esse filme? (lixeira)'))return; filmes=filmes.filter(f=>f.id!==id); save(); render(); toast('🗑️ Filme apagado')}
 function editFilme(id){let f=filmes.find(x=>x.id===id); let n=prompt('✏️ Novo nome do filme:',f.titulo); if(n){f.titulo=n; let c=prompt('Nova pasta/gênero:',f.cat); if(c) f.cat=c; save(); render(); toast('✏️ Editado!')}}
 function shareFilme(id){let f=filmes.find(x=>x.id===id); let url=`https://bancogratidaooficial-ops.github.io/gratiflix-filmes/?v=${f.yt}&t=${encodeURIComponent(f.titulo)}`; navigator.clipboard.writeText(url); toast(`🔗 Link de ${f.titulo} copiado!`); if(navigator.share) navigator.share({title:f.titulo,url})}
-function copiarLinkAtual(){if(!atual) return; let f=filmes.find(x=>x.id===atual); let link=`https://www.youtube-nocookie.com/embed/${f.yt}`; navigator.clipboard.writeText(link); toast(`📋 Link codificado copiado: ${link}`)}
+function copiarLinkAtual(){
+ if(!atual) return; 
+ let f=filmes.find(x=>x.id===atual); 
+ let link=`https://www.youtube.com/watch?v=${f.yt}`; 
+ navigator.clipboard.writeText(link); 
+ toast(`📋 Link copiado: ${link} - Se der erro de incorporação, abre direto no YouTube`);
+}
 function convidar(){let url='https://bancogratidaooficial-ops.github.io/gratiflix-filmes/?ref=GRATIDAO41'; if(navigator.share) navigator.share({title:'GRATIFLIX - Ganhe R$2,50 por amigo',text:'Assista 72 filmes e ganhe dinheiro!',url}); else{prompt('📲 LINK CONVIDAR - Ganhe R$2,50 por amigo:',url)}; let bonus=2.5; saldo+=bonus; vistos++; save(); toast(`💰 Você ganhou R$${bonus.toFixed(2)} por convidar!`)}
 function compartilharApp(){let url='https://bancogratidaooficial-ops.github.io/gratiflix-filmes/'; if(navigator.share) navigator.share({title:'GRATIFLIX',url}); else prompt('🔗 Compartilhe o app:',url)}
 function exportar(){let data=localStorage.getItem('gratiflix_fixo_v2'); let blob=new Blob([data],{type:'application/json'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='gratiflix_backup_fixo.json'; a.click(); toast('📤 Backup exportado!')}
