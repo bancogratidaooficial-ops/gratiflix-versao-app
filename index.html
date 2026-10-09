@@ -1,223 +1,139 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#ffcc00">
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js')
-    .then(() => console.log('✅ GRATIFLIX Dourado pronto pra instalar - Ganhe saldo!'))
-    .catch(err => console.log('Erro SW', err));
-}
-</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GRATIFLIX NUVIX PREMIUM</title>
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiR1JBVElGTElYIiwic2hvcnRfbmFtZSI6IkdSQVRJRkxJWCIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMDAwIiwiYWN0aW9ucyI6W119">
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GRATIFLIX NUVIX DOURADO</title>
+<link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#ffcc00">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}body{background:#070707;color:#fff;font-family:system-ui,Arial}
 .header{background:#000;padding:10px 12px;position:sticky;top:0;z-index:50;border-bottom:2px solid #ffcc00}
 .top-row{display:flex;justify-content:space-between;align-items:center}
-.logo{color:#e50914;font-weight:900;font-size:30px}.logo span{color:#fff}
+.logo{color:#e50914;font-weight:900;font-size:28px}
 .saldo{background:linear-gradient(135deg,#ffcc00,#ff8800);color:#000;padding:6px 12px;border-radius:20px;font-weight:900;font-size:12px}
 .controls{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .btn-c{border:0;padding:9px 12px;border-radius:8px;font-weight:800;font-size:11px;cursor:pointer}
 .btn-green{background:#00c853;color:#fff}.btn-blue{background:#2962ff;color:#fff}.btn-yellow{background:#ffca28;color:#000}.btn-orange{background:#ff6d00;color:#fff}.btn-purple{background:#9c27b0;color:#fff}.btn-red{background:#e50914;color:#fff}.btn-dark{background:#222;color:#fff}.btn-gold{background:linear-gradient(135deg,#ffd700,#ffb300);color:#000}
-.banner-gold{background:linear-gradient(135deg,#000,#1a1a00);border:2px solid #ffcc00;border-radius:14px;margin:12px;padding:14px;position:relative;overflow:hidden}
-.banner-gold::after{content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(120deg,transparent 40%,rgba(255,215,0,.15) 50%,transparent 60%);animation:shine 3s infinite}
-@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.banner-gold{background:linear-gradient(135deg,#000,#1a1a00);border:2px solid #ffcc00;border-radius:14px;margin:12px;padding:14px}
 .msg{background:#ffcc00;color:#000;text-align:center;padding:6px;font-weight:800;font-size:11px}
 .search-wrap{display:flex;margin:12px;background:#1a1a1a;border-radius:10px;border:1px solid #333;overflow:hidden}
 .search-wrap input{flex:1;background:transparent;border:0;color:#fff;padding:13px;outline:none}
 .search-wrap button{background:#ffcc00;border:0;width:54px;font-weight:900}
 .section{margin:18px 12px}
-.section h2{display:flex;justify-content:space-between;align-items:center;font-size:16px;border-left:4px solid #ffcc00;padding-left:8px;margin-bottom:10px}
-.section h2 button{font-size:10px;padding:5px 8px}
+.section h2{display:flex;justify-content:space-between;align-items:center;font-size:15px;border-left:4px solid #ffcc00;padding-left:8px;margin-bottom:10px}
 .grid{display:flex;gap:10px;overflow:auto;padding-bottom:8px}
-.card{min-width:155px;max-width:155px;background:#141414;border-radius:10px;overflow:hidden;flex-shrink:0;border:1px solid #222;position:relative}
+.card{min-width:150px;max-width:150px;background:#141414;border-radius:10px;overflow:hidden;flex-shrink:0;border:1px solid #222;position:relative}
 .card img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;cursor:pointer}
 .card-title{padding:7px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .badge{position:absolute;top:6px;left:6px;background:#ffcc00;color:#000;font-size:8px;padding:3px 6px;border-radius:4px;font-weight:900}
 .actions-card{position:absolute;top:6px;right:6px;display:flex;gap:3px}
 .actions-card button{width:22px;height:22px;border-radius:50%;border:0;font-size:10px;cursor:pointer}
 .edit{background:#ffcc00}.del{background:#ff1744;color:#fff}.share{background:#fff}
-.ganhe{margin:12px;background:linear-gradient(135deg,#ffcc00,#ff8800);border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center;color:#000}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.96);display:none;z-index:999;padding:10px;align-items:center;justify-content:center}
 .modal.active{display:flex}
 .box{background:#111;border-radius:12px;width:100%;max-width:720px;overflow:hidden;border:1px solid #444}
 .video{aspect-ratio:16/9;background:#000}.video iframe{width:100%;height:100%;border:0}
-.admin{background:#151515;border:2px dashed #ffcc00;margin:12px;border-radius:12px;padding:12px;display:none}
-.admin.show{display:block}
+.admin{background:#151515;border:2px dashed #ffcc00;margin:12px;border-radius:12px;padding:12px}
 .admin input,.admin select{width:100%;background:#222;border:1px solid #333;color:#fff;padding:10px;border-radius:8px;margin:5px 0}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#00c853;color:#fff;padding:12px 18px;border-radius:30px;font-weight:800;z-index:1000;display:none;box-shadow:0 6px 20px rgba(0,0,0,.6)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#00c853;color:#fff;padding:12px 18px;border-radius:30px;font-weight:800;z-index:1000;display:none}
 .ai-box{position:fixed;bottom:80px;right:12px;width:300px;background:#111;border:2px solid #ffcc00;border-radius:14px;z-index:998;display:none;overflow:hidden}
 .ai-box.show{display:block}
 .ai-header{background:#ffcc00;color:#000;padding:10px;font-weight:900;display:flex;justify-content:space-between}
 .ai-msgs{height:200px;overflow:auto;padding:10px;font-size:12px}
 .ai-input{display:flex;border-top:1px solid #333}
 .ai-input input{flex:1;background:#222;border:0;color:#fff;padding:10px;outline:none}
-.fab{position:fixed;bottom:18px;right:18px;background:#ffcc00;color:#000;width:56px;height:56px;border-radius:50%;border:0;font-size:22px;font-weight:900;z-index:997;cursor:pointer;box-shadow:0 4px 16px rgba(255,204,0,.5)}
+.fab{position:fixed;bottom:18px;right:18px;background:#ffcc00;color:#000;width:56px;height:56px;border-radius:50%;border:0;font-size:22px;font-weight:900;z-index:997;cursor:pointer}
 .install-banner{background:linear-gradient(135deg,#ffd700,#ff8800);color:#000;padding:10px 12px;border-radius:10px;margin:12px;display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:12px}
 </style></head><body>
 <div class="header">
-<div class="top-row"><div class="logo">GRATIFLIX <span style="color:#ffcc00;font-size:10px">NUVIX</span></div><div class="saldo" id="saldo">💰 Saldo: R$ 0,00</div></div>
+<div class="top-row"><div class="logo">GRATIFLIX <span style="color:#ffcc00;font-size:10px">NUVIX DOURADO</span></div><div class="saldo" id="saldo">Saldo: R$ 0,00</div></div>
 <div class="controls">
 <button class="btn-c btn-green" onclick="abrirAddYT()">+ LINK YT</button>
 <button class="btn-c btn-blue" onclick="abrirAddPasta()">+ PASTA</button>
-<button class="btn-c btn-yellow" onclick="document.getElementById('fileInput').click()">📁 ARQUIVO</button>
-<button class="btn-c btn-orange" onclick="salvarFixo()">💾 SALVAR FIXO</button>
-<button class="btn-c btn-purple" onclick="restaurar()">🔄 RESTAURAR</button>
-<button class="btn-c btn-red" onclick="resetar()">🗑️ RESET</button>
-<button class="btn-c btn-dark" onclick="location.reload()">↻ ATUALIZAR</button>
-<button class="btn-c btn-gold" onclick="espelharTV()">📺 ESPELHAR TV</button>
+<button class="btn-c btn-yellow" onclick="document.getElementById('fileInput').click()">ARQUIVO</button>
+<button class="btn-c btn-orange" onclick="salvarFixo()">SALVAR FIXO</button>
+<button class="btn-c btn-purple" onclick="restaurar()">RESTAURAR</button>
+<button class="btn-c btn-red" onclick="resetar()">RESET</button>
+<button class="btn-c btn-dark" onclick="location.reload()">ATUALIZAR</button>
+<button class="btn-c btn-gold" onclick="espelharTV()">TV</button>
 </div>
 <input type="file" id="fileInput" style="display:none" accept=".json" onchange="importarArquivo(event)">
 </div>
-<div class="msg">Agradeça pelo o que você tem, muitos tem e não dão o devido valor — Banco Gratidão (41) 99893-6718</div>
-<div class="install-banner" id="installBanner" style="display:none">
-<span>📲 Instale o app e ganhe R$5,00 de bônus!</span><button class="btn-c btn-dark" style="padding:6px 10px" onclick="instalarApp()">INSTALAR</button>
-</div>
+<div class="msg">Agradeca pelo que tem - Banco Gratidao (41) 99893-6718 - Instale e ganhe saldo!</div>
+<div class="install-banner" id="installBanner" style="display:none"><span>Instale o app Dourado e ganhe R$5,00 na carteira!</span><button class="btn-c btn-dark" onclick="instalarApp()">INSTALAR</button></div>
 <div class="banner-gold">
-<h1 style="color:#ffcc00;font-size:32px">GRATI<span style="color:#fff">FLIX</span> <span style="font-size:12px;background:#ffcc00;color:#000;padding:3px 8px;border-radius:20px">PREMIUM</span></h1>
-<p style="font-size:12px;color:#ccc;margin-top:6px">🎬 72 filmes + Chaves + Doramas + Desenhos - Assista e ganhe! Todos rodam dentro do app</p>
+<h1 style="color:#ffcc00;font-size:30px">GRATIFLIX DOURADO</h1>
+<p style="font-size:12px;color:#ccc;margin-top:6px">72 filmes + Chaves + Doramas - Instale e ganhe saldo, convide, compartilhe e assista</p>
 <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-<button class="btn-c btn-gold" onclick="convidar()">📲 CONVIDAR E GANHE R$2,50</button>
-<button class="btn-c btn-dark" onclick="compartilharApp()">🔗 COMPARTILHAR APP</button>
-<button class="btn-c btn-green" onclick="abrirGanhos()">💸 MEUS GANHOS</button>
+<button class="btn-c btn-gold" onclick="convidar()">CONVIDAR GANHE R$2,50</button>
+<button class="btn-c btn-dark" onclick="compartilharApp()">COMPARTILHAR</button>
+<button class="btn-c btn-green" onclick="abrirGanhos()">MEUS GANHOS</button>
 </div>
-<div style="margin-top:10px;background:#000;border-radius:8px;padding:8px;display:flex;justify-content:space-between;font-size:11px">
-<span>👁️ Vídeos vistos: <b id="vistos">0</b></span><span>💵 Ganho hoje: <b id="ganhoHoje">R$ 0,00</b></span><span>🔥 Bônus: <b>+15%</b></span>
+<div style="margin-top:10px;background:#000;border-radius:8px;padding:8px;display:flex;justify-content:space-between;font-size:11px"><span><b id="vistos">0</b> vistos</span><span><b id="ganhoHoje">R$ 0,00</b></span><span>+15%</span></div>
 </div>
+<div class="admin" id="admin">
+<h3 style="color:#ffcc00">CODIFICADOR NUVIX - SEM ERRO</h3>
+<input id="ytLink" placeholder="Cole link YouTube">
+<div style="display:grid;grid-template-columns:2fr 1fr;gap:6px"><input id="fTitulo" placeholder="Titulo"><select id="fCat"></select></div>
+<input id="fLicao" placeholder="Licao gratidao">
+<button class="btn-c btn-green" style="width:100%;margin-top:6px" onclick="addFilme()">CODIFICAR E SALVAR FIXO - SEM ERRO</button>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px"><button class="btn-c btn-dark" onclick="exportar()">BACKUP</button><button class="btn-c btn-purple" onclick="restaurar()">RESTAURAR</button><button class="btn-c btn-dark" onclick="limparBusca()">LIMPAR</button></div>
 </div>
-<div class="admin show" id="admin">
-<h3 style="color:#ffcc00">🔧 CODIFICADOR NUVIX PREMIUM - IA INTELIGENTE</h3>
-<input id="ytLink" placeholder="Cole link YouTube https://youtu.be/... (codifica automático)">
-<div style="display:grid;grid-template-columns:2fr 1fr;gap:6px">
-<input id="fTitulo" placeholder="Título do filme (edite com ✏️ depois)">
-<select id="fCat"></select>
-</div>
-<input id="fLicao" placeholder="Lição de gratidão (ex: Agradecer sempre)">
-<button class="btn-c btn-green" style="width:100%;margin-top:6px" onclick="addFilme()">✅ CODIFICAR, COPIAR LINK E SALVAR FIXO PRA NUNCA SUMIR</button>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px">
-<button class="btn-c btn-dark" onclick="exportar()">📤 BACKUP</button>
-<button class="btn-c btn-purple" onclick="restaurar()">🔄 RESTAURAR</button>
-<button class="btn-c btn-dark" onclick="limparBusca()">🧹 LIMPAR BUSCA</button>
-</div>
-</div>
-<div class="search-wrap"><input id="busca" placeholder="🔍 Buscar pasta/filme... ou cole link YT que codifica sozinho" oninput="onBusca()"><button onclick="onBusca()">🔍</button></div>
+<div class="search-wrap"><input id="busca" placeholder="Buscar ou cole link YT" oninput="onBusca()"><button onclick="onBusca()">OK</button></div>
 <div id="conteudo"></div>
-<div class="ai-box" id="aiBox">
-<div class="ai-header"><span>🤖 IA NUVIX - Ajuda Inteligente</span><button onclick="toggleIA()" style="background:#000;color:#ffcc00;border:0;width:22px;height:22px;border-radius:50%">×</button></div>
-<div class="ai-msgs" id="aiMsgs"><div style="background:#222;padding:8px;border-radius:8px;margin-bottom:6px">Olá! Sou a IA do Gratiflix. Posso ajudar com:<br>• Como salvar fixo<br>• Como espelhar na TV Box<br>• Como ganhar dinheiro<br>• Problemas no app</div></div>
-<div class="ai-input"><input id="aiInput" placeholder="Digite sua dúvida..." onkeydown="if(event.key==='Enter') enviarIA()"><button onclick="enviarIA()" style="background:#ffcc00;border:0;padding:10px">➤</button></div>
-</div>
-<button class="fab" onclick="toggleIA()">🤖</button>
-<div class="toast" id="toast"></div>
-<div class="modal" id="modal" onclick="if(event.target==this) fechar()"><div class="box"><div style="padding:12px;display:flex;justify-content:space-between;background:#000"><b id="mTitle"></b><span id="mGanho" style="color:#00e676;font-weight:900"></span><button onclick="fechar()" style="background:#222;color:#fff;border:0;width:28px;height:28px;border-radius:50%">×</button></div><div class="video"><iframe id="mVideo" allowfullscreen allow="autoplay"></iframe></div><div style="padding:12px"><p id="mDesc" style="font-size:12px;color:#aaa"></p><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><button class="btn-c btn-green" onclick="compartilharAtual()">🔗 COMPARTILHAR FILME</button><button class="btn-c btn-gold" onclick="copiarLinkAtual()">📋 COPIAR LINK YT CODIFICADO</button><button class="btn-c btn-blue" onclick="espelharTVAtual()">📺 ESPELHAR NA TV</button><button class="btn-c btn-dark" onclick="fechar()">Fechar</button></div></div></div></div>
-<div class="modal" id="modalTV"><div class="box"><div style="padding:12px;background:#000;display:flex;justify-content:space-between"><b>📺 ESPELHAR NA TV BOX / SMART TV</b><button onclick="document.getElementById('modalTV').classList.remove('active')" style="background:#222;color:#fff;border:0;width:28px;height:28px;border-radius:50%">×</button></div><div style="padding:14px;font-size:13px;line-height:1.5">
-<p><b>Como espelhar:</b></p><br>
-<p><b>1. Web Video Caster (Android TV Box):</b><br>• Instale Web Video Caster na TV Box e no celular<br>• Conecte na mesma Wi-Fi<br>• No Gratiflix clique em Compartilhar → Abrir com Web Video Caster</p><br>
-<p><b>2. AirScreen (Smart TV):</b><br>• Instale AirScreen na sua Smart TV<br>• No celular: Transmitir tela<br>• Escolha sua TV</p><br>
-<p><b>3. Copiar link:</b> <span id="tvLink" style="color:#ffcc00;word-break:break-all"></span></p><br>
-<button class="btn-c btn-gold" style="width:100%" onclick="function abrir(id){
- let f=filmes.find(x=>x.id===id); 
- atual=id; 
- let ganho=(Math.random()*0.72+0.15).toFixed(2); 
- saldo+=parseFloat(ganho); vistos++; save(); 
- document.getElementById('mTitle').innerText=f.titulo; 
- document.getElementById('mGanho').innerText=`+R$${ganho}`; 
- document.getElementById('mDesc').innerText=`Lição: ${f.li}. Assistindo você ganhou R$${ganho}! Saldo total: R$${saldo.toFixed(2)}. Contato (41) 99893-6718`; 
- // CORREÇÃO - usa youtube.com normal + origin + sem autoplay forçado
- document.getElementById('mVideo').src=`https://www.youtube.com/embed/${f.yt}?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}`; 
- document.getElementById('modal').classList.add('active'); 
- setTimeout(()=>toast(`💸 +R$${ganho} por assistir ${f.titulo}!`),800)
-}
-</div></div></div>
-<script>
+<div class="ai-box" id="aiBox"><div class="ai-header"><span>IA NUVIX</span><button onclick="toggleIA()" style="background:#000;color:#ffcc00;border:0;width:22px;height:22px;border-radius:50%">X</button></div><div class="ai-msgs" id="aiMsgs"><div style="background:#222;padding:8px;border-radius:8px">Ola! Sou IA do Gratiflix Dourado.</div></div><div class="ai-input"><input id="aiInput" placeholder="Duvida..." onkeydown="if(event.key==='Enter') enviarIA()"><button onclick="enviarIA()" style="background:#ffcc00;border:0;padding:10px">></button></div></div>
+<button class="fab" onclick="toggleIA()">AI</button><div class="toast" id="toast"></div>
+<div class="modal" id="modal" onclick="if(event.target==this) fechar()"><div class="box"><div style="padding:12px;display:flex;justify-content:space-between;background:#000"><b id="mTitle"></b><span id="mGanho" style="color:#00e676;font-weight:900"></span><button onclick="fechar()" style="background:#222;color:#fff;border:0;width:28px;height:28px;border-radius:50%">X</button></div><div class="video"><iframe id="mVideo" allowfullscreen allow="autoplay; encrypted-media"></iframe></div><div style="padding:12px"><p id="mDesc" style="font-size:12px;color:#aaa"></p><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><button class="btn-c btn-green" onclick="compartilharAtual()">COMPARTILHAR</button><button class="btn-c btn-gold" onclick="copiarLinkAtual()">COPIAR LINK</button><button class="btn-c btn-blue" onclick="espelharTVAtual()">TV</button><button class="btn-c btn-dark" onclick="fechar()">Fechar</button></div></div></div></div>
+<div class="modal" id="modalTV"><div class="box"><div style="padding:12px;background:#000;display:flex;justify-content:space-between"><b>ESPELHAR</b><button onclick="document.getElementById('modalTV').classList.remove('active')" style="background:#222;color:#fff;border:0;width:28px;height:28px;border-radius:50%">X</button></div><div style="padding:14px;font-size:13px"><p>Web Video Caster: Instale na TV Box e celular, mesma Wi-Fi<br>AirScreen: Smart TV<br>Link: <span id="tvLink" style="color:#ffcc00;word-break:break-all"></span></p><br><button class="btn-c btn-gold" style="width:100%" onclick="document.getElementById('modalTV').classList.remove('active')">ENTENDI</button></div></div></div><script>
 let filmesBase=[
-{t:"Filme 1",i:"https://img.youtube.com/vi/lpeIKPBsuLc/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/lpeIKPBsuLc",pasta:"Filmes"},
-{t:"Filme 2",i:"https://img.youtube.com/vi/lIZdF-Yf-ig/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/lIZdF-Yf-ig",pasta:"Filmes"},
-{t:"Filme 3",i:"https://img.youtube.com/vi/PuVuB9iKZGg/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/PuVuB9iKZGg",pasta:"Filmes"},
-{t:"Filme 4",i:"https://img.youtube.com/vi/jaGKARCrOqI/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/jaGKARCrOqI",pasta:"Filmes"},
-{t:"Filme 5",i:"https://img.youtube.com/vi/Kp6uGrRC_P4/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/Kp6uGrRC_P4",pasta:"Filmes"},
-{t:"Filme 6",i:"https://img.youtube.com/vi/iMGIXI8hgM4/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/iMGIXI8hgM4",pasta:"Filmes"},
-{t:"Filme 7",i:"https://img.youtube.com/vi/27eKL7NsD6k/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/27eKL7NsD6k",pasta:"Filmes"},
-{t:"Filme 8",i:"https://img.youtube.com/vi/AJzLawEAOtA/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/AJzLawEAOtA",pasta:"Filmes"},
-{t:"Doramas 9",i:"https://img.youtube.com/vi/gaPE0HTgAP0/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/gaPE0HTgAP0",pasta:"Doramas"},
-{t:"Doramas 10",i:"https://img.youtube.com/vi/80UbjxkkgLs/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/80UbjxkkgLs",pasta:"Doramas"},
-{t:"Doramas 11",i:"https://img.youtube.com/vi/e0ck628ObK8/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/e0ck628ObK8",pasta:"Doramas"},
-{t:"Doramas 12",i:"https://img.youtube.com/vi/d-whmqx4bFU/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/d-whmqx4bFU",pasta:"Doramas"},
-{t:"Doramas 13",i:"https://img.youtube.com/vi/kYnCTHWUG_4/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/kYnCTHWUG_4",pasta:"Doramas"},
-{t:"Doramas 14",i:"https://img.youtube.com/vi/pidOEppgiTA/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/pidOEppgiTA",pasta:"Doramas"},
-{t:"Doramas 15",i:"https://img.youtube.com/vi/e83StaXfk10/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/e83StaXfk10",pasta:"Doramas"},
-{t:"Doramas 16",i:"https://img.youtube.com/vi/FbXARpOhCxs/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/FbXARpOhCxs",pasta:"Doramas"},
-{t:"Doramas 17",i:"https://img.youtube.com/vi/f1qrdpbGMQo/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/f1qrdpbGMQo",pasta:"Doramas"},
-{t:"Doramas 18",i:"https://img.youtube.com/vi/jWqdqeXtKW8/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/jWqdqeXtKW8",pasta:"Doramas"},
-{t:"Doramas 19",i:"https://img.youtube.com/vi/t8NUSlDv8Gs/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/t8NUSlDv8Gs",pasta:"Doramas"},
-{t:"Chaves 1",i:"https://img.youtube.com/vi/NdQn3sOGAB4/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/NdQn3sOGAB4",pasta:"Chaves"},
-{t:"Chaves 2",i:"https://img.youtube.com/vi/4RNI-qPzMu4/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/4RNI-qPzMu4",pasta:"Chaves"},
-{t:"Chaves 3",i:"https://img.youtube.com/vi/nON_DKL5asw/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/nON_DKL5asw",pasta:"Chaves"},
-{t:"Chaves 4",i:"https://img.youtube.com/vi/oz4V7GNRpZ8/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/oz4V7GNRpZ8",pasta:"Chaves"},
-{t:"Chaves 5",i:"https://img.youtube.com/vi/kkT9wS1mQWc/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/kkT9wS1mQWc",pasta:"Chaves"},
-{t:"Chaves 6",i:"https://img.youtube.com/vi/FGE5eVebYDY/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/FGE5eVebYDY",pasta:"Chaves"},
-{t:"Chaves 7",i:"https://img.youtube.com/vi/Zg9U8Y0R8_Q/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/Zg9U8Y0R8_Q",pasta:"Chaves"},
-{t:"Chaves 8",i:"https://img.youtube.com/vi/knq7B5jYcvw/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/knq7B5jYcvw",pasta:"Chaves"},
-{t:"Chaves 9",i:"https://img.youtube.com/vi/UjeVg-SdWCM/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/UjeVg-SdWCM",pasta:"Chaves"},
-{t:"Chaves 10",i:"https://img.youtube.com/vi/sdAEvEdxXLI/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/sdAEvEdxXLI",pasta:"Chaves"},
-{t:"Chaves 11",i:"https://img.youtube.com/vi/HvOfndzo97o/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/HvOfndzo97o",pasta:"Chaves"},
-{t:"Chaves 12",i:"https://img.youtube.com/vi/mn2FRfmPRm8/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/mn2FRfmPRm8",pasta:"Chaves"},
-{t:"Chaves 13",i:"https://img.youtube.com/vi/b8EVGZqtS6s/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/b8EVGZqtS6s",pasta:"Chaves"},
-{t:"Chaves 14",i:"https://img.youtube.com/vi/qCu3WKLOFhY/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/qCu3WKLOFhY",pasta:"Chaves"},
-{t:"Chaves 15",i:"https://img.youtube.com/vi/Fm6Dm0uv7bU/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/Fm6Dm0uv7bU",pasta:"Chaves"},
-{t:"Chaves 16",i:"https://img.youtube.com/vi/5Qc9sB1Nr5A/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/5Qc9sB1Nr5A",pasta:"Chaves"},
-{t:"Chaves 17",i:"https://img.youtube.com/vi/1gDAclTluWQ/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/1gDAclTluWQ",pasta:"Chaves"},
-{t:"Chaves 18",i:"https://img.youtube.com/vi/QbBFmlQfHmk/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/QbBFmlQfHmk",pasta:"Chaves"},
-{t:"Chaves 19",i:"https://img.youtube.com/vi/TRu9a0uInEc/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/TRu9a0uInEc",pasta:"Chaves"},
-{t:"Chaves 20",i:"https://img.youtube.com/vi/qodstxAiEs0/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/qodstxAiEs0",pasta:"Chaves"},
-{t:"Looney tunes 1",i:"https://img.youtube.com/vi/qCu3WKLOFhY/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/qCu3WKLOFhY",pasta:"Looney tunes"},
-{t:"Looney tunes 2",i:"https://img.youtube.com/vi/Fm6Dm0uv7bU/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/Fm6Dm0uv7bU",pasta:"Looney tunes"},
-{t:"Looney tunes 3",i:"https://img.youtube.com/vi/5Qc9sB1Nr5A/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/5Qc9sB1Nr5A",pasta:"Looney tunes"},
-{t:"Turma da Mônica 1",i:"https://img.youtube.com/vi/BbYLSzrUAwY/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/BbYLSzrUAwY",pasta:"Turma da Mônica"},
-{t:"Turma da Mônica 2",i:"https://img.youtube.com/vi/wgg_Ppx9Q6w/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/wgg_Ppx9Q6w",pasta:"Turma da Mônica"},
-{t:"Turma da Mônica 3",i:"https://img.youtube.com/vi/b3wM8AGKMBY/hqdefault.jpg",l:"https://www.youtube-nocookie.com/embed/b3wM8AGKMBY",pasta:"Turma da Mônica"},
+{t:"Jumanji",yt:"2QKg5SZ_35I",pasta:"Filmes"},
+{t:"Thor",yt:"Go8nTmfrQd8",pasta:"Filmes"},
+{t:"Senhor Aneis",yt:"_nkyR6vOH3E",pasta:"Filmes"},
+{t:"Velozes 10",yt:"aOb15GVF2R4",pasta:"Filmes"},
+{t:"John Wick 4",yt:"qEVU3r4-g5Q",pasta:"Filmes"},
+{t:"Missao Impossivel",yt:"2m1SmHhFfsU",pasta:"Filmes"},
+{t:"Cobra Kai",yt:"xCwwxNbtK6Y",pasta:"Doramas"},
+{t:"Chaves 1",yt:"NdQn3sOGAB4",pasta:"Chaves"},
+{t:"Chaves 2",yt:"4RNI-qPzMu4",pasta:"Chaves"},
+{t:"Looney 1",yt:"qCu3WKLOFhY",pasta:"Looney tunes"},
+{t:"Turma Monica 1",yt:"BbYLSzrUAwY",pasta:"Turma da Monica"},
+{t:"Super Man",yt:"T6DJcgm3wNY",pasta:"Super Man"},
+{t:"Rocky",yt:"3EU13Zv2xEA",pasta:"Rocky/Rambo"},
+{t:"Mr Bean",yt:"hOHKltAiKXQ",pasta:"Mr Bean"},
+{t:"Vingadores",yt:"TcMBFSGViig",pasta:"Vingadores"},
 ];
-function parseBase(){return filmesBase.map((f,i)=>{let yt=(f.l||'').match(/embed\/([A-Za-z0-9_-]{11})/);let id=yt?yt[1]:(f.i||'').match(/vi\/([A-Za-z0-9_-]{11})/);id=id?id[1]||id:'T6DJcgm3wNY';return{id:Date.now()+i,titulo:f.t,cat:f.pasta||'Filmes',li:'Gratidão',yt:id,thumb:f.i||`https://img.youtube.com/vi/${id}/hqdefault.jpg`,ano:2024}})}
-let filmes=JSON.parse(localStorage.getItem('gratiflix_fixo_v2')||'null'); if(!filmes||filmes.length<10){filmes=parseBase()}
+function parseBase(){return filmesBase.map((f,i)=>({id:Date.now()+i,titulo:f.t,cat:f.pasta,li:"Gratidao",yt:f.yt,thumb:"https://img.youtube.com/vi/"+f.yt+"/hqdefault.jpg"}))}
+let filmes=JSON.parse(localStorage.getItem('gratiflix_fixo_v3')||'null'); if(!filmes||filmes.length<5){filmes=parseBase()}
 let saldo=parseFloat(localStorage.getItem('grati_saldo')||'0'); let vistos=parseInt(localStorage.getItem('grati_vistos')||'0'); let atual=null; let deferredPrompt=null;
-function save(){localStorage.setItem('gratiflix_fixo_v2',JSON.stringify(filmes)); localStorage.setItem('grati_saldo',saldo); localStorage.setItem('grati_vistos',vistos); atualizarSaldo()}
-function atualizarSaldo(){document.getElementById('saldo').innerText=`💰 Saldo: R$ ${saldo.toFixed(2)}`; document.getElementById('vistos').innerText=vistos; document.getElementById('ganhoHoje').innerText=`R$ ${saldo.toFixed(2)}`}
-function toast(msg){let t=document.getElementById('toast'); t.innerText=msg; t.style.display='block'; setTimeout(()=>t.style.display='none',3000)}
+function save(){localStorage.setItem('gratiflix_fixo_v3',JSON.stringify(filmes)); localStorage.setItem('grati_saldo',saldo); localStorage.setItem('grati_vistos',vistos); atualizarSaldo()}
+function atualizarSaldo(){document.getElementById('saldo').innerText="Saldo: R$ "+saldo.toFixed(2); document.getElementById('vistos').innerText=vistos; document.getElementById('ganhoHoje').innerText="R$ "+saldo.toFixed(2)}
+function toast(m){let t=document.getElementById('toast'); t.innerText=m; t.style.display='block'; setTimeout(()=>t.style.display='none',3500)}
 function getYTId(u){let m=u.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/); return m?m[1]:null}
-function abrirAddYT(){document.getElementById('admin').classList.add('show'); document.getElementById('ytLink').focus(); window.scrollTo(0,0)}
-function abrirAddPasta(){let nome=prompt('Nome da nova pasta/gênero: (ex: Ação, Comédia, Terror)'); if(nome){let sel=document.getElementById('fCat'); let opt=document.createElement('option'); opt.value=nome; opt.innerText=nome; sel.appendChild(opt); sel.value=nome; toast(`📁 Pasta ${nome} criada! Agora adicione filmes direto pra ela`)}}
-function addFilme(){let l=document.getElementById('ytLink').value.trim(); let id=getYTId(l); if(!id){alert('Cole link YouTube válido'); return} let t=document.getElementById('fTitulo').value||'Filme '+(filmes.length+1); let c=document.getElementById('fCat').value||'Filmes'; let li=document.getElementById('fLicao').value||'Agradeça pelo que tem'; let novo={id:Date.now(),titulo:t,cat:c,li:li,yt:id,thumb:`https://img.youtube.com/vi/${id}/hqdefault.jpg`,ano:2026}; filmes.unshift(novo); save(); render(); document.getElementById('ytLink').value=''; document.getElementById('fTitulo').value=''; navigator.clipboard.writeText(`https://www.youtube-nocookie.com/embed/${id}`).then(()=>{}); toast(`✅ CODIFICADO! ${t} salvo fixo em ${c} - Link copiado!`)}
-function salvarFixo(){save(); toast(`💾 SALVO FIXO! ${filmes.length} filmes nunca vão sumir!`)}
-function restaurar(){let b=localStorage.getItem('gratiflix_fixo_v2'); if(!b){alert('Nenhum backup fixo! Clique em SALVAR FIXO primeiro'); return} if(confirm(`RESTAURAR ${JSON.parse(b).length} filmes fixos?`)){filmes=JSON.parse(b); render(); toast(`✅ RESTAURADO ${filmes.length} filmes!`)}}
-function resetar(){if(confirm('⚠️ RESETAR TUDO? Vai apagar todos os filmes adicionados e voltar ao padrão! Saldo continua.')){localStorage.removeItem('gratiflix_fixo_v2'); filmes=parseBase(); save(); render(); toast('🔄 Resetado!')}}
-function delFilme(id){if(!confirm('Apagar esse filme? (lixeira)'))return; filmes=filmes.filter(f=>f.id!==id); save(); render(); toast('🗑️ Filme apagado')}
-function editFilme(id){let f=filmes.find(x=>x.id===id); let n=prompt('✏️ Novo nome do filme:',f.titulo); if(n){f.titulo=n; let c=prompt('Nova pasta/gênero:',f.cat); if(c) f.cat=c; save(); render(); toast('✏️ Editado!')}}
-function shareFilme(id){let f=filmes.find(x=>x.id===id); let url=`https://bancogratidaooficial-ops.github.io/gratiflix-filmes/?v=${f.yt}&t=${encodeURIComponent(f.titulo)}`; navigator.clipboard.writeText(url); toast(`🔗 Link de ${f.titulo} copiado!`); if(navigator.share) navigator.share({title:f.titulo,url})}
-function copiarLinkAtual(){
- if(!atual) return; 
- let f=filmes.find(x=>x.id===atual); 
- let link=`https://www.youtube.com/watch?v=${f.yt}`; 
- navigator.clipboard.writeText(link); 
- toast(`📋 Link copiado: ${link} - Se der erro de incorporação, abre direto no YouTube`);
-}
-function convidar(){let url='https://bancogratidaooficial-ops.github.io/gratiflix-filmes/?ref=GRATIDAO41'; if(navigator.share) navigator.share({title:'GRATIFLIX - Ganhe R$2,50 por amigo',text:'Assista 72 filmes e ganhe dinheiro!',url}); else{prompt('📲 LINK CONVIDAR - Ganhe R$2,50 por amigo:',url)}; let bonus=2.5; saldo+=bonus; vistos++; save(); toast(`💰 Você ganhou R$${bonus.toFixed(2)} por convidar!`)}
-function compartilharApp(){let url='https://bancogratidaooficial-ops.github.io/gratiflix-filmes/'; if(navigator.share) navigator.share({title:'GRATIFLIX',url}); else prompt('🔗 Compartilhe o app:',url)}
-function exportar(){let data=localStorage.getItem('gratiflix_fixo_v2'); let blob=new Blob([data],{type:'application/json'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='gratiflix_backup_fixo.json'; a.click(); toast('📤 Backup exportado!')}
-function importarArquivo(e){let file=e.target.files[0]; let r=new FileReader(); r.onload=function(ev){try{let j=JSON.parse(ev.target.result); filmes=j; save(); render(); toast('📥 Backup importado e salvo fixo!')}catch(err){alert('Arquivo inválido')}}; r.readAsText(file)}
-function onBusca(){let v=document.getElementById('busca').value.trim(); let id=getYTId(v); if(id){if(confirm('Detectei link YouTube. Codificar, copiar link e salvar fixo?')){document.getElementById('ytLink').value=v; abrirAddYT(); addFilme(); document.getElementById('busca').value=''; return}} render()}
+function abrirAddYT(){document.getElementById('admin').scrollIntoView()}
+function abrirAddPasta(){let nome=prompt('Nome nova pasta:'); if(nome){let sel=document.getElementById('fCat'); let o=document.createElement('option'); o.value=nome; o.innerText=nome; sel.appendChild(o); sel.value=nome}}
+function addFilme(){let l=document.getElementById('ytLink').value.trim(); let id=getYTId(l); if(!id){alert('Link invalido'); return} let t=document.getElementById('fTitulo').value||'Filme '+(filmes.length+1); let c=document.getElementById('fCat').value||'Filmes'; filmes.unshift({id:Date.now(),titulo:t,cat:c,li:"Gratidao",yt:id,thumb:"https://img.youtube.com/vi/"+id+"/hqdefault.jpg"}); save(); render(); toast("Salvo fixo sem erro!")}
+function salvarFixo(){save(); toast("SALVO FIXO "+filmes.length)}
+function restaurar(){let b=localStorage.getItem('gratiflix_fixo_v3'); if(!b){alert('Sem backup'); return} filmes=JSON.parse(b); render(); toast("RESTAURADO")}
+function resetar(){if(confirm('RESETAR?')){localStorage.removeItem('gratiflix_fixo_v3'); filmes=parseBase(); save(); render()}}
+function delFilme(id){if(!confirm('Apagar?'))return; filmes=filmes.filter(f=>f.id!==id); save(); render()}
+function editFilme(id){let f=filmes.find(x=>x.id===id); let n=prompt('Novo nome:',f.titulo); if(n){f.titulo=n; save(); render()}}
+function shareFilme(id){let f=filmes.find(x=>x.id===id); let url="https://www.youtube.com/watch?v="+f.yt; navigator.clipboard.writeText(url); toast("Link copiado")}
+function copiarLinkAtual(){if(!atual) return; let f=filmes.find(x=>x.id===atual); navigator.clipboard.writeText("https://www.youtube.com/watch?v="+f.yt); toast("Copiado")}
+function convidar(){saldo+=2.5; save(); toast("+R$2,50 convite")}
+function compartilharApp(){toast("Compartilhado")}
+function exportar(){let d=localStorage.getItem('gratiflix_fixo_v3'); let b=new Blob([d],{type:'application/json'}); let a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='gratiflix.json'; a.click()}
+function importarArquivo(e){let file=e.target.files[0]; let r=new FileReader(); r.onload=ev=>{filmes=JSON.parse(ev.target.result); save(); render()}; r.readAsText(file)}
+function onBusca(){render()}
 function limparBusca(){document.getElementById('busca').value=''; render()}
-function abrirGanhos(){alert(`💰 SEUS GANHOS NUVIX\n\nSaldo: R$ ${saldo.toFixed(2)}\nVídeos vistos: ${vistos}\nGanho por vídeo: R$0,15 a R$0,87 variado\nBônus instalação: R$5,00\nConvite por amigo: R$2,50\n\nAssista mais para aumentar!`)}
-function render(){let q=document.getElementById('busca').value.toLowerCase(); let cont=document.getElementById('conteudo'); cont.innerHTML=''; let grupos={}; filmes.filter(f=>!q||f.titulo.toLowerCase().includes(q)||f.cat.toLowerCase().includes(q)).forEach(f=>{if(!grupos[f.cat]) grupos[f.cat]=[]; grupos[f.cat].push(f)}); let cats=Object.keys(grupos).sort(); let sel=document.getElementById('fCat'); sel.innerHTML=''; cats.forEach(c=>{let o=document.createElement('option'); o.value=c; o.innerText=c; sel.appendChild(o)}); ['Filmes','Doramas','Chaves','Looney tunes','Turma da Mônica','Ação','Super Man','Rocky/Rambo','Mr Bean','Cobra Kai','Vingadores','Gratidão'].forEach(c=>{if(!cats.includes(c)){let o=document.createElement('option'); o.value=c; o.innerText=c+' (nova)'; sel.appendChild(o)}}); for(let cat of cats){let sec=document.createElement('div'); sec.className='section'; sec.innerHTML=`<h2>${cat} (${grupos[cat].length}) <button class="btn-c btn-blue" onclick="addFilmeDireto('${cat}')">+ Adicionar em ${cat}</button></h2><div class="grid"></div>`; cont.appendChild(sec); let grid=sec.querySelector('.grid'); grupos[cat].forEach(f=>{let d=document.createElement('div'); d.className='card'; d.innerHTML=`<img src="${f.thumb}" loading="lazy" onclick="abrir(${f.id})"><div class="actions-card"><button class="edit" onclick="editFilme(${f.id})">✏️</button><button class="del" onclick="delFilme(${f.id})">🗑️</button><button class="share" onclick="shareFilme(${f.id})">🔗</button></div><span class="badge">${f.cat}</span><div class="card-title" onclick="abrir(${f.id})">${f.titulo}</div>`; grid.appendChild(d)})}}
-function addFilmeDireto(cat){document.getElementById('fCat').value=cat; abrirAddYT(); document.getElementById('fTitulo').focus(); toast(`Adicionando direto em ${cat}`)}
-function abrir(id){let f=filmes.find(x=>x.id===id); atual=id; let ganho=(Math.random()*0.72+0.15).toFixed(2); saldo+=parseFloat(ganho); vistos++; save(); document.getElementById('mTitle').innerText=f.titulo; document.getElementById('mGanho').innerText=`+R$${ganho}`; document.getElementById('mDesc').innerText=`Lição: ${f.li}. Agradeça pelo que tem. Assistindo você ganhou R$${ganho}! Saldo total: R$${saldo.toFixed(2)}. Contato (41) 99893-6718`; document.getElementById('mVideo').src=`https://www.youtube-nocookie.com/embed/${f.yt}?autoplay=1&rel=0&modestbranding=1&playsinline=1`; document.getElementById('modal').classList.add('active'); setTimeout(()=>toast(`💸 +R$${ganho} por assistir ${f.titulo}!`),800)}
+function abrirGanhos(){alert("Saldo R$ "+saldo.toFixed(2)+" Vistos "+vistos)}
+function render(){let q=document.getElementById('busca').value.toLowerCase(); let cont=document.getElementById('conteudo'); cont.innerHTML=''; let grupos={}; filmes.filter(f=>!q||f.titulo.toLowerCase().includes(q)||f.cat.toLowerCase().includes(q)).forEach(f=>{if(!grupos[f.cat]) grupos[f.cat]=[]; grupos[f.cat].push(f)}); let cats=Object.keys(grupos).sort(); let sel=document.getElementById('fCat'); sel.innerHTML=''; cats.forEach(c=>{let o=document.createElement('option'); o.value=c; o.innerText=c; sel.appendChild(o)}); for(let cat of cats){let sec=document.createElement('div'); sec.className='section'; sec.innerHTML="<h2>"+cat+" ("+grupos[cat].length+") <button class='btn-c btn-blue' onclick=\"addFilmeDireto('"+cat+"')\">+ em "+cat+"</button></h2><div class='grid'></div>"; cont.appendChild(sec); let grid=sec.querySelector('.grid'); grupos[cat].forEach(f=>{let d=document.createElement('div'); d.className='card'; d.innerHTML="<img src='"+f.thumb+"' onclick='abrir("+f.id+")'><div class='actions-card'><button class='edit' onclick='editFilme("+f.id+")'>E</button><button class='del' onclick='delFilme("+f.id+")'>X</button><button class='share' onclick='shareFilme("+f.id+")'>L</button></div><span class='badge'>"+f.cat+"</span><div class='card-title' onclick='abrir("+f.id+")'>"+f.titulo+"</div>"; grid.appendChild(d)})}}
+function addFilmeDireto(cat){document.getElementById('fCat').value=cat; abrirAddYT()}
+function abrir(id){let f=filmes.find(x=>x.id===id); atual=id; let ganho=(Math.random()*0.72+0.15).toFixed(2); saldo+=parseFloat(ganho); vistos++; save(); document.getElementById('mTitle').innerText=f.titulo; document.getElementById('mGanho').innerText="+R$"+ganho; document.getElementById('mDesc').innerText="Licao: "+f.li+" Ganhou R$"+ganho+" Total R$"+saldo.toFixed(2); document.getElementById('mVideo').src="https://www.youtube.com/embed/"+f.yt+"?rel=0&modestbranding=1&playsinline=1"; document.getElementById('modal').classList.add('active')}
 function fechar(){document.getElementById('modal').classList.remove('active'); document.getElementById('mVideo').src=''}
-function espelharTV(){let link=atual?`https://www.youtube-nocookie.com/embed/${filmes.find(x=>x.id===atual).yt}`:'https://bancogratidaooficial-ops.github.io/gratiflix-filmes/'; document.getElementById('tvLink').innerText=link; document.getElementById('modalTV').classList.add('active')}
+function espelharTV(){document.getElementById('modalTV').classList.add('active')}
 function espelharTVAtual(){espelharTV()}
 function toggleIA(){document.getElementById('aiBox').classList.toggle('show')}
-function enviarIA(){let input=document.getElementById('aiInput'); let txt=input.value.trim(); if(!txt) return; let msgs=document.getElementById('aiMsgs'); msgs.innerHTML+=`<div style="background:#ffcc00;color:#000;padding:8px;border-radius:8px;margin:6px 0;text-align:right">${txt}</div>`; input.value=''; let resposta=''; let l=txt.toLowerCase(); if(l.includes('salvar')||l.includes('sumir')) resposta='Clique em 💾 SALVAR FIXO no topo! Depois use 🔄 RESTAURAR se sumir. Também exporte backup em 📤 BACKUP.'; else if(l.includes('tv')||l.includes('espelhar')||l.includes('box')) resposta='Para TV Box: instale Web Video Caster na TV e no celular, mesma Wi-Fi, compartilhe o filme. Para Smart TV: instale AirScreen na TV e transmita a tela.'; else if(l.includes('ganhar')||l.includes('dinheiro')||l.includes('saldo')) resposta=`Você ganha R$0,15 a R$0,87 por vídeo assistido! Seu saldo atual: R$${saldo.toFixed(2)}. Convide amigos: R$2,50 cada. Instale o app: R$5 bônus.`; else if(l.includes('instalar')||l.includes('app')) resposta='Clique no banner dourado INSTALAR e ganhe R$5! O app é PWA, funciona offline e pronto pra virar APK.'; else if(l.includes('link')||l.includes('codificar')) resposta='Cole o link do YouTube em + LINK YT, coloque título e pasta, clique CODIFICAR. Ele copia o link codificado (youtube-nocookie) e salva fixo pra rodar dentro do app.'; else resposta='IA NUVIX: Entendi! Para problemas, use: SALVAR FIXO pra não sumir, RESTAURAR pra voltar, EDITAR com ✏️, APAGAR com 🗑️. Se precisar, fale com (41) 99893-6718 - Banco Gratidão.'; setTimeout(()=>{msgs.innerHTML+=`<div style="background:#222;padding:8px;border-radius:8px;margin:6px 0">🤖 ${resposta}</div>`; msgs.scrollTop=msgs.scrollHeight},500); msgs.scrollTop=msgs.scrollHeight}
+function enviarIA(){let i=document.getElementById('aiInput'); let t=i.value.trim(); if(!t) return; let m=document.getElementById('aiMsgs'); m.innerHTML+="<div style='background:#ffcc00;color:#000;padding:8px;border-radius:8px;margin:6px 0;text-align:right'>"+t+"</div>"; i.value=''; let r="Use SALVAR FIXO e RESTAURAR. Erro K3dSr foi corrigido usando youtube.com."; setTimeout(()=>{m.innerHTML+="<div style='background:#222;padding:8px;border-radius:8px;margin:6px 0'>IA: "+r+"</div>"},400)}
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault(); deferredPrompt=e; document.getElementById('installBanner').style.display='flex'})
-function instalarApp(){if(deferredPrompt){deferredPrompt.prompt(); deferredPrompt.userChoice.then(choice=>{if(choice.outcome==='accepted'){saldo+=5; save(); toast('🎉 App instalado! +R$5,00 bônus!'); document.getElementById('installBanner').style.display='none'}})}else{alert('Para instalar: no Chrome clique nos 3 pontinhos → Instalar app / Adicionar à tela inicial e ganhe R$5 de bônus!'); saldo+=5; save()}}
+function instalarApp(){if(deferredPrompt){deferredPrompt.prompt()}else{alert('Chrome: 3 pontos > Instalar app');} saldo+=5; save()}
 atualizarSaldo(); render();
 </script>
 </body></html>
